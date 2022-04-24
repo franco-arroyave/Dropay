@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block titulo %} Creditos {% endblock %}
+
+{% block contenido %}  
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'newCredito' %}" role="button">Nuevo Credito</a>
+    </div>
+    
+    <div class="card-body">
+        <h4 class="card-title">Creditos</h4>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Monto Inicial</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">1</td>
+                    <td>Para el carro</td>
+                    <td>Numero</td>
+                    <td>
+                        <a name="" id="" class="btn btn-info" href="{% url 'payCredito' %}" role="button">Pagar</a>
+                        <a name="" id="" class="btn btn-danger" href="#" role="button">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+{% endblock %}

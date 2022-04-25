@@ -140,3 +140,38 @@ input[type=checkbox]:checked{
     color: #2F3646;
     align-items: center;
 }
+
+nav {
+    background-color: #01048a;
+    padding: 0;
+}
+
+.navbar {
+    padding: 0;
+}
+
+nav > a.nav--logo {
+    margin: 0px 0px 0px 15%;
+    padding: 0px 0px 0px 0px;
+}
+
+nav > ul {
+    color: #41C9EB;
+}
+
+nav > div > ul > div.userMenu {
+    background-color: #41C9EB;
+    border-radius: 0px 0px 0px 30px;
+    height: 64px;
+    width: 400px;
+    padding-left: 100px;
+    padding-top: 25px;
+    align-content: center;
+}
+
+nav > div > ul > div.userMenu > a.userMenu--user {
+    color: #01048a;
+    text-decoration: none;
+    font-size: 14px;
+    height: 100%;
+}

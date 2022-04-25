@@ -47,11 +47,23 @@ body {
     border: none;
 }
 
-.logIn_Form button:hover{
+button.button--regular{
+    width: 100%;
+    height: 40px;
+    background-color: #41C9EB;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0px 3px 10px #00000014;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover{
     opacity: 0.7;
 }
 
-.logIn_Form button:active{
+button:active{
     opacity: 1;
     background-color: #01048a;
 }
@@ -179,6 +191,7 @@ nav > div > ul > div.userMenu > a.userMenu--user {
 div.loanList--empty{
     margin-top: 5%;
     padding-top: 50px;
+    
 }
 
 div.loanList--empty img{
@@ -194,4 +207,20 @@ div.loanList--empty div.text-container{
     text-align: center;
     border: 1px solid #636363bd;
     border-radius: 5px;
+    background-color: white;
+}
+
+div.form--addLoan {
+    background-color: white;
+    margin-top: 5%;
+    background-image: url('../images/background2_blue.svg');
+    background-repeat: no-repeat;
+    background-position: top right;
+    padding: 80px 80px 50px 80px;
+    box-shadow: 1px 3px 10px #00000017;
+    border-radius: 5px;
+}
+
+div.form--addLoan form.form-addLoan--content {
+    margin-top: 35px;
 }

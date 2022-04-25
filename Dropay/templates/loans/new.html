@@ -1,23 +1,59 @@
 {% extends "base.html" %}
 
-{% block title %} New Loan {% endblock %}
+{% block titulo %} New Loan {% endblock %}
 
 {% block contenido %}  
 
 {%include '../navbar.html'%}
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            New Loan
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">Loan Information</h4>
-            {% include 'loans/form.html' %}
-        </div>
-        <div class="card-footer text-muted">
-            
-        </div>
+
+<style>
+    img.icon--blue {
+        filter: invert(71%) sepia(66%) saturate(599%) hue-rotate(158deg) brightness(92%) contrast(100%);
+    }
+</style>
+{%load static%}
+<div class="container form--addLoan">
+    <div class="row">
+        <h3>Add Loan</h3>
     </div>
+    <form class="form-addLoan--content" enctype="multipart/form-data" method="post">
+        <div class="row">
+          <div class="col-6">
+              <fieldset class="input-field">
+                  <input id="loan_name" type="text" required>
+                  <label for="loan_name"><img src="{%static 'images/credit-card.svg'%}" class="icon--blue" alt="Loan name"> Loan Name</label>
+              </fieldset>
+              <fieldset class="input-field">
+                  <input id="loan_ammount" type="number" required>
+                  <label for="loan_ammount"><img src="{%static 'images/cash.svg'%}" class="icon--blue" alt="Loan Ammount"> Loan Ammount</label>
+              </fieldset>
+              <fieldset class="input-field">
+                  <input id="loan_term" type="number" required>
+                  <label for="loan_term"><img src="{%static 'images/calendar-event.svg'%}" class="icon--blue" alt="Loan Term"> Loan Term</label>
+              </fieldset>
+              <fieldset class="input-field">
+                <input id="loan_interest" type="number" required>
+                <label for="loan_interest"><img src="{%static 'images/calculator.svg'%}" class="icon--blue" alt="Interest Rate"> Interest Rate</label>
+            </fieldset>
+          </div>
+          <div class="col-6">
+            <fieldset class="input-field">
+                <input id="loan_startDate" type="text" required>
+                <label for="loan_startDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Start Date"> Start Date</label>
+            </fieldset>
+            <fieldset class="input-field">
+                <input id="loan_paymentDate" type="text" required>
+                <label for="loan_paymentDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Payment Date"> Payment Date</label>
+            </fieldset>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <a href="{% url 'index'%}"><button class="button--regular">Calculate</button></a>
+            </div>
+        </div>
+      </form>
 </div>
 
 

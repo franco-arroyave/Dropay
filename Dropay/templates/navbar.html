@@ -3,7 +3,14 @@
 {% block contenido %}
 
 {%load static%}
-
+<style>
+    body {
+        background-image: url('../static/images/backgrund1_grey.svg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: bottom left;
+    }
+</style>
 <nav class="navbar navbar-light navbar-expand-md">
     <a href="{% url 'index' %}" class="nav--logo navbar-brand d-flex"><img src="{% static '/images/logo.svg'%}" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">

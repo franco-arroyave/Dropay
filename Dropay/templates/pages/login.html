@@ -21,24 +21,22 @@
         <div class="col">
             <div class="logIn_Form">
                 <h2>Log In</h2>
-                <label for="user_email">
-                    <span class="input-name">
-                        Email
-                    </span>
-                </label>
-                <input id="user_email" type="text">
-                <label for="user_password">
-                    <span class="input-name">
-                        Password
-                    </span>
-                </label>
-                <input id="user_password" type="text">
+                <fieldset class="input-field">
+                    <input id="user_email" type="text" required>
+                    <label for="user_email">Email</label>
+                </fieldset>
+                <fieldset class="input-field">
+                    <input id="user_password" type="text" required>
+                    <label for="user_password">Password</label>
+                </fieldset>
+
+                <input type="checkbox"><span class="checkbox--span">Remember information</span>
+                <button>Sign In</button>
+
+                <span class="logIn_Form--finalText">New to Dropay? <a href="">Sign Up!</a> </span>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    console.log(getBoundingClientRect().height);
-</script>
 {% endblock %}

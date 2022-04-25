@@ -175,3 +175,23 @@ nav > div > ul > div.userMenu > a.userMenu--user {
     font-size: 14px;
     height: 100%;
 }
+
+div.loanList--empty{
+    margin-top: 5%;
+    padding-top: 50px;
+}
+
+div.loanList--empty img{
+    position: relative;
+    bottom: -40px;
+    background-color: white;
+}
+
+div.loanList--empty div.text-container{
+    width: 400px;
+    height: 140px;
+    padding: 50px 10px 0px 10px;
+    text-align: center;
+    border: 1px solid #636363bd;
+    border-radius: 5px;
+}

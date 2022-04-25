@@ -5,7 +5,18 @@
 {% block contenido %}  
 
 {%include '../navbar.html'%}
+
+{%load static%}
 <div class="container">
+    <div class="loanList--empty d-flex align-items-center flex-column">
+        <a href="{%url 'newLoan'%}"><img src="{% static 'images/circle-plus.png'%}" class="add-button" alt="Add" width="80px"></a>
+        <div class="text-container">
+            <p>You haven't added loans yet, it's a good time to add one now!</p>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
     <div class="p-5 bg-light">
         <div class="container">
             <h1 class="display-3">Welcome to Dropay!</h1>
@@ -17,6 +28,6 @@
             </p>
         </div>
     </div>
-</div>
+</div> -->
 
 {% endblock %}

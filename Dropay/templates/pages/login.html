@@ -23,17 +23,17 @@
                 <h2>Log In</h2>
                 <fieldset class="input-field">
                     <input id="user_email" type="text" required>
-                    <label for="user_email">Email</label>
+                    <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
                 </fieldset>
                 <fieldset class="input-field">
-                    <input id="user_password" type="text" required>
-                    <label for="user_password">Password</label>
+                    <input id="user_password" type="password" required>
+                    <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
                 </fieldset>
 
                 <input type="checkbox"><span class="checkbox--span">Remember information</span>
-                <button>Sign In</button>
+                <a href="{% url 'index'%}"><button>Sign In</button></a>
 
-                <span class="logIn_Form--finalText">New to Dropay? <a href="">Sign Up!</a> </span>
+                <span class="logIn_Form--finalText">New to Dropay? <a href="{% url 'signup'%}">Sign Up!</a> </span>
             </div>
         </div>
     </div>

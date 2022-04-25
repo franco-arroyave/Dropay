@@ -1,8 +1,51 @@
 {% extends "base.html" %}
-{% block titulo %} Login {% endblock %}
+
+{% block titulo %}Sign Up{% endblock %}
 
 {% block contenido %}  
 
-Sección de login
+{% load static %}
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col" style="background-image: url('../static/images/signup_background.png'); height: 98vh;">
+            <div class="logIn_logo">
+                <img src="{% static '/images/logo.svg'%}" class="logIn_logo--img" alt="Logo">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing 
+                    elit, sed do eiusmod tempor incididunt ut labore 
+                    et dolore magna aliqua. Ut enim ad minim veniam, 
+                    quis nostrud exercitation ullamco laboris nisi ut 
+                    aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="logIn_Form">
+                <h2>Sign Up</h2>
+                <fieldset class="input-field">
+                    <input id="user_firstName" type="text" required>
+                    <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
+                </fieldset>
+                <fieldset class="input-field">
+                    <input id="user_last_Name" type="text" required>
+                    <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
+                </fieldset>
+                <fieldset class="input-field">
+                    <input id="user_email" type="text" required>
+                    <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
+                </fieldset>
+                <fieldset class="input-field">
+                    <input id="user_password" type="password" required>
+                    <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                </fieldset>
+
+                <input type="checkbox"><span class="checkbox--span">I agree terms and conditions</span>
+                
+                <a href="{% url 'index'%}"><button>Sign Up</button></a>
+
+                <span class="logIn_Form--finalText">Already have an account? <a href="{% url 'login'%}">Log In!</a> </span>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

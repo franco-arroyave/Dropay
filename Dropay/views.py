@@ -12,3 +12,5 @@ def loanPayment(request):
     return render(request, 'loans/payment.html')
 def logIn(request):
     return render(request, 'pages/logIn.html')
+def signUp(request):
+    return render(request, 'pages/signUp.html')

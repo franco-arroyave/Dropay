@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.logIn_logo {
+    margin-top: 30%;
+    margin-left: 20%;
+}
+
+.logIn_logo > img {
+    width: 380px;
+}
+
+.logIn_logo > p {
+    width: 450px;
+    margin-top: 30px;
+    font-size: 14;
+    color: white;
+}

@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "**/Credit/__pycache__": true,
+        "**/Dropay/__pycache__": true
+    }
+}

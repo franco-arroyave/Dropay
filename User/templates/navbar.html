@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+{%load static%}
+<style>
+    body {
+        background-image: url('../static/images/backgrund1_grey.svg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: bottom left;
+    }
+</style>
+<nav class="navbar navbar-light navbar-expand-md">
+    <a href="{% url 'index' %}" class="nav--logo navbar-brand d-flex"><img src="{% static '/images/logo.svg'%}" alt="Logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <ul class="navbar-nav w-100 justify-content-center">
+        <li class="nav-item">
+            <a href="{% url 'loans' %}">Loans</a>
+        </li>
+    </ul> -->
+    <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto w-100 justify-content-end">
+            <div class="userMenu">
+                <a class="userMenu--user" href="#"><img src="{% static '/images/user.svg'%}" alt="User"> Camilo</a>
+                <img src="{% static '/images/box-arrow-right.svg'%}" alt="Log out" style="margin-left: 30px;">
+            </div>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}

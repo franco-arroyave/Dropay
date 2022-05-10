@@ -5,6 +5,7 @@
 {% block contenido %}  
 
 {% load static %}
+
 <div class="container-fluid p-0">
     <div class="row">
         <div class="col" style="background-image: url('../static/images/signup_background.png'); height: 98vh;">
@@ -20,6 +21,14 @@
         </div>
         <div class="col">
             <div class="logIn_Form">
+                <form class="form" method="post">
+
+                    {% csrf_token %}
+                
+                    {{ form.as_p }}
+                
+                    <button type="submit" id="submit">Registrate</button>
+                </form>
                 <h2>Sign Up</h2>
                 <fieldset class="input-field">
                     <input id="user_firstName" type="text" required>

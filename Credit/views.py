@@ -1,16 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Loan
 # Create your views here.
 
-def index(request):
-    return render(request, "pages/index.html")
 def loans(request):
-    return render(request, 'loans/index.html')
+    loansList = loan.objects.all()
+    return render(request, 'pages/index.html', {'loans': loansList})
 def newLoan(request):
-    return render(request, 'loans/new.html')
+    return render(request, 'pages/new.html')
 def loanPayment(request):
-    return render(request, 'loans/payment.html')
-def logIn(request):
-    return render(request, 'pages/logIn.html')
-def signUp(request):
-    return render(request, 'pages/signUp.html')
+    return render(request, 'pages/payment.html')

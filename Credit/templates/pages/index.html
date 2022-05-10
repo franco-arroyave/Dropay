@@ -1,33 +1,44 @@
 {% extends "base.html" %}
-
-{% block titulo %} Home {% endblock %}
+{% block titulo %} Loans {% endblock %}
 
 {% block contenido %}  
 
 {%include '../navbar.html'%}
-
-{%load static%}
 <div class="container">
-    <div class="loanList--empty d-flex align-items-center flex-column">
-        <a href="{%url 'newLoan'%}"><img src="{% static 'images/circle-plus.png'%}" class="add-button" alt="Add" width="80px"></a>
-        <div class="text-container">
-            <p>You haven't added loans yet, it's a good time to add one now!</p>
+    <div class="card">
+        <div class="card-header">
+            <a name="" id="" class="btn btn-success" href="{% url 'newLoan' %}" role="button">New Loan</a>
+        </div>
+        
+        <div class="card-body">
+            <h4 class="card-title">Loans</h4>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Loan Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td scope="row">{{ loan.loanid }}</td>
+                        <td>{{ loan.name }}</td>
+                        <td>{{ loan.Amount }}</td>
+                        <td>
+                            <a name="" id="" class="btn btn-info" href="{% url 'loanPayment' %}" role="button">Pagar</a>
+                            <a name="" id="" class="btn btn-danger" href="#" role="button">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
         </div>
     </div>
 </div>
-
-<!-- <div class="container">
-    <div class="p-5 bg-light">
-        <div class="container">
-            <h1 class="display-3">Welcome to Dropay!</h1>
-            <p class="lead">...</p>
-            <hr class="my-2">
-            <p>More informationn</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="{% url 'loans' %}" role="button">Loans</a>
-            </p>
-        </div>
-    </div>
-</div> -->
 
 {% endblock %}

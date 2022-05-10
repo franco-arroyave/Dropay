@@ -4,9 +4,17 @@ from .models import Loan
 # Create your views here.
 
 def loans(request):
-    loansList = loan.objects.all()
+    loansList = Loan.objects.all()
     return render(request, 'pages/index.html', {'loans': loansList})
+
 def newLoan(request):
     return render(request, 'pages/new.html')
+
 def loanPayment(request):
     return render(request, 'pages/payment.html')
+
+def addLoanSummary(request):
+    context = {}
+    system = request.POST
+    context['system'] = system
+    return render(request, 'pages/loanSummary.html', context)

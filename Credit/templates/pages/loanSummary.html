@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %} New Loan {% endblock %}
+
+{% block contenido %}  
+
+{%include '../navbar.html'%}
+
+{%load static%}
+
+<div class="container form--addLoan">
+    <h3>{{system.loan_name}}</h3>
+    
+</div>
+
+
+{% endblock %}

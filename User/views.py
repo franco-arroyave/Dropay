@@ -27,7 +27,8 @@ def signUp(request):
             messages.success(request, f'Ususario {username} creado exitosamente')
             return redirect('login')
         else:
-            messages.success(request, f'Error al diligenciar el formulario')
+            messages.add_message(request, messages.ERROR, form.errors)
+            # messages.success(request, f'Error al diligenciar el formulario')
     else:
         form = UserRegisterForm()
         messages.success(request, f'Hello register')

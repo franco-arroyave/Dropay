@@ -13,7 +13,7 @@
         <h3>{{system.loanName}}</h3>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-3">
             <p>
                 Loan Ammount: {{system.Amount}}
             </p>
@@ -27,12 +27,64 @@
                 {{system.loanPeriod}} payment {{loanInfo.monthlyPayment}}
             </p>
         </div>
-        <div class="col-6">
-            Graphic
+        <div class="col-9">
+            <div id="graphic"></div>
         </div>
+    </div>
+    <div class="row">
+        <button class="button--regular" type="submit">Submit</button>
     </div>
     
 </div>
+<script>
+    Highcharts.chart('graphic', {
+        chart: {
+            type: 'areaspline',
+            backgroundColor: 'rgba(0,0,0,0)'
+        },
+        title: {
+            text: 'Loan Performance'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [ {{ loanChart.categories | safe}}],
+            plotBands: [{
+            from: 4.5,
+            to: 6.5,
+            color: 'rgba(68, 170, 213, .2)'
+        }]
+        },
+        yAxis: {
+            title: {
+                text: 'Payment'
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' USD'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'Interest',
+            data: [{{ loanChart.interest | safe}}]
+        }, {
+            name: 'Principal',
+            data: [{{ loanChart.principal | safe}}]
+        }, {
+            name: 'Balance',
+            data: [{{ loanChart.balance | safe}}]
+        }]
+    });
+  </script>
 
 
 {% endblock %}

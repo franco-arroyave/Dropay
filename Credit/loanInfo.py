@@ -1,3 +1,4 @@
+import datetime
 import numpy_financial as npf
 
 class LoanInfo :
@@ -8,12 +9,13 @@ class LoanInfo :
         self.Compound = system.get('Compound')
         self.InterestRate = float(system.get('InterestRate'))
         self.Ammount = float(system.get('Amount'))
+        self.StartDate = datetime.datetime.strptime(system.get('StartDate'), '%m/%d/%Y')
 
     def loanSummary(self):
         loanContext = dict()
         loanContext['monthsTerm'] = LoanInfo.monthsTerm(self)
-        loanContext['interestEA'] = LoanInfo.convertInterestRate(self)
-        loanContext['monthlyPayment'] = LoanInfo.monthlyPayment(self)
+        loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self)
+        loanContext['monthlyPayment'] = "%.2f" % LoanInfo.monthlyPayment(self)
         return loanContext
 
     def monthsTerm(self):
@@ -34,3 +36,64 @@ class LoanInfo :
     
     def monthlyPayment(self):
         return -1*npf.pmt(self.InterestRate/100, LoanInfo.monthsTerm(self), self.Ammount)
+
+    def loanChart(self):
+        chartInfo = dict()
+        chartInfo['categories'] = LoanInfo.chartCategories(self)
+        chartInfo['interest'] = LoanInfo.chartInterest(self)
+        chartInfo['principal'] = LoanInfo.chartPrincipal(self)
+        chartInfo['balance'] = LoanInfo.chartBalance(self)
+        return chartInfo
+
+    def chartCategories(self) :
+        months = LoanInfo.monthsTerm(self)
+        strCategories = ''
+        for i in range(months) :
+            newDate = (self.StartDate + datetime.timedelta(i * 30)).date().strftime('%d/%m/%Y')
+            strCategories +=  '\'' + str(newDate) + '\', '
+        return strCategories
+    
+    def chartInterest(self) :
+        months = LoanInfo.monthsTerm(self)
+        mpt = LoanInfo.monthlyPayment(self)
+        balance = self.Ammount
+        interest = 0
+        principal = 0
+        strInterest = ''
+        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        for i in range(months) :
+            interest = interestRate*balance
+            principal = mpt - interest
+            balance = balance - principal
+            strInterest += str("%.2f" % interest) + ', '
+        return strInterest
+
+    def chartPrincipal(self) :
+        months = LoanInfo.monthsTerm(self)
+        mpt = LoanInfo.monthlyPayment(self)
+        balance = self.Ammount
+        interest = 0
+        principal = 0
+        strPrincipal = ''
+        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        for i in range(months) :
+            interest = interestRate*balance
+            principal = mpt - interest
+            balance = balance - principal
+            strPrincipal += str("%.2f" % principal) + ', '
+        return strPrincipal
+
+    def chartBalance(self) :
+        months = LoanInfo.monthsTerm(self)
+        mpt = LoanInfo.monthlyPayment(self)
+        balance = self.Ammount
+        interest = 0
+        principal = 0
+        strBalance = ''
+        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        for i in range(months) :
+            interest = interestRate*balance
+            principal = mpt - interest
+            balance = balance - principal
+            strBalance += str("%.2f" % balance) + ', '
+        return strBalance

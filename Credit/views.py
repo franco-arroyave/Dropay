@@ -23,10 +23,16 @@ def addLoanSummary(request):
     if request.method == "POST":
         form = addLoanForm(request.POST)
         if form.is_valid() :
+            saveLoan = form.save(commit=False)
+            saveLoan.UserID_id = request.user.id
+            saveLoan.Periodicity_id = 1
+            saveLoan.save()
+
             context = {}
             system = request.POST
             context['system'] = system
             context['loanInfo'] = LoanInfo(system).loanSummary()
+            context['loanChart'] = LoanInfo(system).loanChart()
             return render(request, 'pages/loanSummary.html', context)
         else :
             messages.add_message(request, messages.ERROR, form.errors)

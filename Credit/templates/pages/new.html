@@ -23,46 +23,62 @@
         <div class="row">
             <div class="col-6">
                 <fieldset class="input-field">
-                    <input id="loan_name" name="loan_name" type="text" required>
+                    <!-- <input id="loan_name" name="loan_name" type="text" required> -->
+                    {{ form.loanName }}
                     <label for="loan_name"><img src="{%static 'images/credit-card.svg'%}" class="icon--blue" alt="Loan name"> Loan Name</label>
                 </fieldset>
                 <fieldset class="input-field">
-                    <input id="loan_ammount" name="loan_ammount" type="text" required>
-                    <label for="loan_ammount"><img src="{%static 'images/cash.svg'%}" class="icon--blue" alt="Loan Ammount"> Loan Ammount</label>
+                    <!-- <input id="loan_ammount" name="loan_ammount" type="text" required> -->
+                    {{ form.Amount }}
+                    <label for="Amount"><img src="{%static 'images/cash.svg'%}" class="icon--blue" alt="Loan Ammount"> Loan Ammount</label>
                 </fieldset>
                 <fieldset class="input-field">
-                    <input id="loan_term" name="loan_term" type="number" required>
-                    <label for="loan_term"><img src="{%static 'images/calendar-event.svg'%}" class="icon--blue" alt="Loan Term"> Loan Term</label>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                {{ form.Term }}
+                                <label for="Term"><img src="{%static 'images/calendar-event.svg'%}" class="icon--blue" alt="Loan Term"> Loan Term</label>
+                            </td>
+                            <td width="25%">
+                                {{ form.termCalendar }}
+                            </td>
+                        </tr>
+                    </table>
                 </fieldset>
                 <fieldset class="input-field">
-                    <input id="loan_interestRate" name="loan_interestRate" type="number" required>
-                    <label for="loan_interestRate"><img src="{%static 'images/calculator.svg'%}" class="icon--blue" alt="Interest Rate"> Interest Rate</label>
-                </fieldset>
-                <fieldset class="input-field">
-                    <select class="form-select" aria-label="Default select example" name="loan_compound">
-                        <option selected>Compound</option>
-                        <option value="1">EA</option>
-                        <option value="2">EM</option>
-                    </select>
+                    <table>
+                        <tr>
+                            <td>
+                                {{ form.InterestRate }}
+                                <label for="InterestRate"><img src="{%static 'images/calculator.svg'%}" class="icon--blue" alt="Interest Rate"> Interest Rate</label>
+                            </td>
+                            <td width="25%">
+                                {{ form.Compound }}
+                            </td>
+                        </tr>
+                    </table>
                 </fieldset>
             </div>
             <div class="col-6">
                 <fieldset class="input-field">
-                    <input id="loan_startDate" name="loan_startDate" type="text" required>
-                    <label for="loan_startDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Start Date"> Start Date</label>
+                    <!-- <input id="loan_startDate" name="loan_startDate" type="text" required> -->
+                    {{ form.StartDate}}
+                    <label for="StartDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Start Date"> Start Date</label>
                 </fieldset>
                 <fieldset class="input-field">
-                    <input id="loan_disbursementDate" name="loan_disbursementDate" type="text" required>
-                    <label for="loan_disbursementDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Disbursement Date"> Disbursement Date</label>
+                    <!-- <input id="loan_disbursementDate" name="loan_disbursementDate" type="text" required> -->
+                    {{ form.disbursementDate }}
+                    <label for="disbursementDate"><img src="{%static 'images/calendar.svg'%}" class="icon--blue" alt="Disbursement Date"> Disbursement Date</label>
                 </fieldset>
                 <fieldset class="input-field">
-                    <select class="form-select" aria-label="Default select example" name="loan_period">
+                    {{ form.loanPeriod}}
+                    <!-- <select class="form-select" aria-label="Default select example" name="loan_period">
                         <option selected>Loan Period</option>
                         <option value="1">Monthly</option>
                         <option value="2">Weekly</option>
                         <option value="3">Annually</option>
                         <option value="4">Daily</option>
-                    </select>
+                    </select> -->
                 </fieldset>
             </div>
         </div>

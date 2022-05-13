@@ -20,18 +20,25 @@
         </div>
         <div class="col">
             <div class="logIn_Form">
-                <h2>Log In</h2>
-                <fieldset class="input-field">
-                    <input id="user_email" type="text" required>
-                    <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
-                </fieldset>
-                <fieldset class="input-field">
-                    <input id="user_password" type="password" required>
-                    <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
-                </fieldset>
+                <form class="form" method="post">
+                    
+                    {% csrf_token %}
 
-                <input type="checkbox"><span class="checkbox--span">Remember information</span>
-                <a href="{% url 'index'%}"><button>Sign In</button></a>
+                    <h2>Log In</h2>
+
+                    <fieldset class="input-field">
+                        {{ form.username }}
+                        <label for="user_name"><img src="{% static '/images/email.png'%}" height="16px" alt="username"> Username</label>
+                    </fieldset>
+                    <fieldset class="input-field">
+                        {{ form.password }}
+                        <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                    </fieldset>
+
+                    <input type="checkbox" name="remember"><span class="checkbox--span">Remember information</span>
+
+                    <button type="submit" id="submit">Sign In</button>
+                </form>
 
                 <span class="logIn_Form--finalText">New to Dropay? <a href="{% url 'signup'%}">Sign Up!</a> </span>
             </div>

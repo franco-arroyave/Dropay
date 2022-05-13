@@ -22,34 +22,60 @@
         <div class="col">
             <div class="logIn_Form">
                 <form class="form" method="post">
-
+                    
                     {% csrf_token %}
-                
-                    {{ form.as_p }}
-                
-                    <button type="submit" id="submit">Registrate</button>
-                </form>
-                <h2>Sign Up</h2>
-                <fieldset class="input-field">
-                    <input id="user_firstName" type="text" required>
-                    <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
-                </fieldset>
-                <fieldset class="input-field">
-                    <input id="user_last_Name" type="text" required>
-                    <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
-                </fieldset>
-                <fieldset class="input-field">
-                    <input id="user_email" type="text" required>
-                    <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
-                </fieldset>
-                <fieldset class="input-field">
-                    <input id="user_password" type="password" required>
-                    <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
-                </fieldset>
 
-                <input type="checkbox"><span class="checkbox--span">I agree terms and conditions</span>
-                
-                <a href="{% url 'index'%}"><button>Sign Up</button></a>
+                    <h2>Sign Up</h2>
+
+                    <fieldset class="input-field">
+                        {{ form.first_name }}
+                        <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.last_name }}
+                        <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.email }}
+                        <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.document }}
+                        <label for="user_document"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Document</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.documentType }}
+                        <label for="user_documentType"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Document Type</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.username }}
+                        <label for="user_username"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="Username"> Username</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.password1 }}
+                        <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.password2 }}
+                        <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
+                    </fieldset>
+
+                    <fieldset class="input-field">
+                        {{ form.birthday }}
+                        <label for="user_birthday"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Birthday </label>
+                    </fieldset>
+
+                    <input type="checkbox"><span class="checkbox--span">I agree terms and conditions</span>
+
+                    <button type="submit" id="submit">Sign Up</button>
+                </form>
 
                 <span class="logIn_Form--finalText">Already have an account? <a href="{% url 'login'%}">Log In!</a> </span>
             </div>

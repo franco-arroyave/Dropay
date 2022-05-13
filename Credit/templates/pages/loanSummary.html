@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block titulo %} New Loan {% endblock %}
+
+{% block contenido %}  
+
+{%include '../navbar.html'%}
+
+{%load static%}
+
+<div class="container form--addLoan">
+    <div class="row">
+        <h3>{{system}}</h3>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p>
+                Loan Ammount: {{system.loan_ammount}}
+            </p>
+            <p>
+                Loan Term: {{system.loan_term}} months.
+            </p>
+            <p>
+                Interest Rate {{system.loan_interestRate}} {{system.loan_compound}}
+            </p>
+            <p>
+                {{system.loan_period}} payment $$$
+            </p>
+        </div>
+        <div class="col-6">
+            Graphic
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}

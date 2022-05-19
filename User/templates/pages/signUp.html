@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="logIn_Form">
+            <div class="signUp_Form">
                 <form class="form" method="post">
                     
                     {% csrf_token %}
@@ -49,7 +49,6 @@
 
                     <fieldset class="input-field">
                         {{ form.documentType }}
-                        <label for="user_documentType"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Document Type</label>
                     </fieldset>
 
                     <fieldset class="input-field">

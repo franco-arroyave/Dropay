@@ -7,14 +7,19 @@ class Periodicity(models.Model):
     PeriodicityID = models.AutoField(primary_key=True)
     Description = models.TextField(null=True, max_length=50)
 
+    def __str__(self):
+        return '{}'.format(self.Description)
+
 class Loan(models.Model):
     LoanID = models.AutoField(primary_key=True)
     UserID = models.ForeignKey(xUser,on_delete=models.CASCADE)
-    Amount = models.FloatField(null=True, verbose_name='Monto')
+    Name = models.TextField(null=True, max_length=50, verbose_name="Nombre")
+    Ammount = models.FloatField(null=True, verbose_name='Monto')
     Term = models.IntegerField(null=True, verbose_name='Plazo')
     Periodicity = models.ForeignKey(Periodicity,on_delete=models.CASCADE)
     InterestRate = models.FloatField(null=True, verbose_name='Interes')
-    StartDate = models.DateTimeField(null=True, verbose_name='Fecha Inicial')
+    StartDate = models.DateField(null=True, verbose_name='Fecha Inicial')
+    DisbursementDate = models.DateField(null=True, verbose_name='Fecha Desembolso')
     monthlyPayment = models.FloatField(null=True, verbose_name='Cuota')
 
 class xPayment(models.Model):

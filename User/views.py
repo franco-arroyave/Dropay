@@ -31,6 +31,6 @@ def signUp(request):
             # messages.success(request, f'Error al diligenciar el formulario')
     else:
         form = UserRegisterForm()
-        messages.success(request, f'Hello register')
+        # messages.success(request, f'Hello register')
     context = {'form' : form}
     return render(request, 'pages/signUp.html', context)

@@ -8,8 +8,8 @@ class LoanInfo :
         self.termCalendar = system.get('termCalendar')
         self.Compound = system.get('Compound')
         self.InterestRate = float(system.get('InterestRate'))
-        self.Ammount = float(system.get('Amount'))
-        self.StartDate = datetime.datetime.strptime(system.get('StartDate'), '%m/%d/%Y')
+        self.Ammount = float(system.get('Ammount'))
+        self.StartDate = datetime.datetime.strptime(system.get('StartDate'), '%Y-%m-%d')
 
     def loanSummary(self):
         loanContext = dict()

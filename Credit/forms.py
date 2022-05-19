@@ -1,19 +1,13 @@
+from email.policy import default
+from random import choices
 from tkinter import Widget
 from django import forms
-from .models import Loan
+from .models import Loan, Periodicity
 
 Compound_Choices = (
     ('', 'Select Compound'),
     ('EA', 'EA'),
     ('EM', 'EM')
-)
-
-loanPeriod_Choices = (
-    ('', 'Select Loan Period'),
-    ('Monthly', 'Monthly'),
-    ('Weekly', 'Weekly'),
-    ('Annually', 'Annually'),
-    ('Daily', 'Daily')
 )
 
 termCalendar_Choices = (
@@ -25,29 +19,36 @@ termCalendar_Choices = (
 class addLoanForm(forms.ModelForm):
 
     Compound = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-select"}), choices=Compound_Choices)
-    disbursementDate = forms.DateTimeField()
-    loanPeriod = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-select"}), choices=loanPeriod_Choices)
-    loanName = forms.CharField(widget=forms.TextInput)
+    loanPeriod = forms.ModelChoiceField(widget=forms.Select(attrs={"class": "form-select"}), queryset=Periodicity.objects.all(), empty_label="Select Period")
+    # loanName = forms.CharField(widget=forms.TextInput)
     termCalendar = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-select"}), choices=termCalendar_Choices)
 
     class Meta:
         model = Loan
-        StartDate = forms.DateField()
-        fields = ('Amount', 'Term', 'StartDate', 'InterestRate')
+        # StartDate = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+        fields = ('Name','Ammount', 'Term', 'StartDate', 'DisbursementDate', 'InterestRate')
+        widgets = {
+            'StartDate' : forms.widgets.DateInput(attrs={'type': 'text', 
+                                                        'onfocus' : "(this.type='date')",
+                                                        'onblur' : "if(!this.value) this.type='text'"}),
+            'DisbursementDate' : forms.widgets.DateInput(attrs={'type': 'text', 
+                                                        'onfocus' : "(this.type='date')",
+                                                        'onblur' : "if(!this.value) this.type='text'"})
+        }
     
     def clean(self):
         super(addLoanForm, self).clean()
 
-        loanAmmount = self.cleaned_data.get('Amount')
+        loanAmmount = self.cleaned_data.get('Ammount')
         startDate = self.cleaned_data.get('StartDate')
-        disbursementDate = self.cleaned_data.get('disbursementDate')
+        DisbursementDate = self.cleaned_data.get('DisbursementDate')
         loanTerm = self.cleaned_data.get('Term')
         interestRate = self.cleaned_data.get('InterestRate')
 
         if loanAmmount <= 0:
-            self.add_error('Amount', 'The Loan Ammount must be higher than 0.')
+            self.add_error('Ammount', 'The Loan Ammount must be higher than 0.')
         
-        if startDate < disbursementDate:
+        if startDate < DisbursementDate:
             self.add_error('StartDate', 'The Start Date must be after the Disbursement Date.')
         
         if loanTerm <= 0 :

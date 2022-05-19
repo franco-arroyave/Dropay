@@ -1,0 +1,26 @@
+[
+    {
+        "model": "Credit.Periodicity",
+        "fields": {
+            "Description": "Annually"
+        }
+    },
+    {
+        "model": "Credit.Periodicity",
+        "fields": {
+            "Description": "Monthly"
+        }
+    },
+    {
+        "model": "Credit.Periodicity",
+        "fields": {
+            "Description": "Weekly"
+        }
+    },
+    {
+        "model": "Credit.Periodicity",
+        "fields": {
+            "Description": "Daily"
+        }
+    }
+]

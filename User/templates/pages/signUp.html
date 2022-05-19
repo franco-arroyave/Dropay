@@ -55,16 +55,23 @@
                         {{ form.username }}
                         <label for="user_username"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="Username"> Username</label>
                     </fieldset>
-
-                    <fieldset class="input-field">
-                        {{ form.password1 }}
-                        <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
-                    </fieldset>
-
-                    <fieldset class="input-field">
-                        {{ form.password2 }}
-                        <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
-                    </fieldset>
+                    
+                    <table>
+                        <tr>
+                            <td>
+                                <fieldset class="input-field">
+                                    {{ form.password1 }}
+                                    <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                                </fieldset>
+                            </td>
+                            <td>
+                                <fieldset class="input-field">
+                                    {{ form.password2 }}
+                                    <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </table>
 
                     <fieldset class="input-field">
                         {{ form.birthday }}

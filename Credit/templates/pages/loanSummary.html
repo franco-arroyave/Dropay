@@ -10,12 +10,12 @@
 
 <div class="container form--addLoan">
     <div class="row">
-        <h3>{{system.loanName}}</h3>
+        <h3>{{system.Name}} {{system}}</h3>
     </div>
     <div class="row">
         <div class="col-3">
             <p>
-                Loan Ammount: {{system.Amount}}
+                Loan Ammount: ${{system.Ammount}} USD
             </p>
             <p>
                 Loan Term: {{loanInfo.monthsTerm}} months.
@@ -24,7 +24,7 @@
                 Interest Rate {{loanInfo.interestEA}}% EA
             </p>
             <p>
-                {{system.loanPeriod}} payment {{loanInfo.monthlyPayment}}
+                Payment: ${{loanInfo.monthlyPayment}} USD
             </p>
         </div>
         <div class="col-9">

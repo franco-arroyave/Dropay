@@ -10,11 +10,12 @@ class LoanInfo :
         self.InterestRate = float(system.get('InterestRate'))
         self.Ammount = float(system.get('Ammount'))
         self.StartDate = datetime.datetime.strptime(system.get('StartDate'), '%Y-%m-%d')
+        self.loanPeriod = 1
 
     def loanSummary(self):
         loanContext = dict()
         loanContext['monthsTerm'] = LoanInfo.monthsTerm(self)
-        loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self)
+        loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self, 12)
         loanContext['monthlyPayment'] = "%.2f" % LoanInfo.monthlyPayment(self)
         return loanContext
 
@@ -28,14 +29,20 @@ class LoanInfo :
             months = self.Term
         return months
 
-    def convertInterestRate(self):
+    def convertInterestRate(self, nPeriod):
         if self.Compound == "EM" :
-            return 100*(pow(1+self.InterestRate/100, 12)-1)
+            if nPeriod == 1 :
+                return 100*(pow(1+self.InterestRate/100, 12)-1)
+            else :
+                return 100*(pow(1+self.InterestRate/100, 12/nPeriod)-1)
         else:
-            return self.InterestRate
+            if nPeriod == 12 :
+                return self.InterestRate
+            else :
+                return 100*(pow(1+self.InterestRate/100, nPeriod/12)-1)
     
     def monthlyPayment(self):
-        return -1*npf.pmt(self.InterestRate/100, LoanInfo.monthsTerm(self), self.Ammount)
+        return -1*npf.pmt(LoanInfo.convertInterestRate(self, 12)/100, LoanInfo.monthsTerm(self), self.Ammount)
 
     def loanChart(self):
         chartInfo = dict()
@@ -60,7 +67,7 @@ class LoanInfo :
         interest = 0
         principal = 0
         strInterest = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
         for i in range(months) :
             interest = interestRate*balance
             principal = mpt - interest
@@ -75,7 +82,7 @@ class LoanInfo :
         interest = 0
         principal = 0
         strPrincipal = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
         for i in range(months) :
             interest = interestRate*balance
             principal = mpt - interest
@@ -90,7 +97,7 @@ class LoanInfo :
         interest = 0
         principal = 0
         strBalance = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self)/100, 1/12)-1
+        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
         for i in range(months) :
             interest = interestRate*balance
             principal = mpt - interest

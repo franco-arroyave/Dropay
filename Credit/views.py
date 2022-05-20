@@ -26,7 +26,7 @@ def addLoanSummary(request):
             saveLoan = form.save(commit=False)
             saveLoan.UserID_id = request.user.id
             saveLoan.Periodicity_id = 1
-            saveLoan.save()
+            # saveLoan.save()
 
             context = {}
             system = request.POST

@@ -33,7 +33,8 @@ class addLoanForm(forms.ModelForm):
                                                         'onblur' : "if(!this.value) this.type='text'"}),
             'DisbursementDate' : forms.widgets.DateInput(attrs={'type': 'text', 
                                                         'onfocus' : "(this.type='date')",
-                                                        'onblur' : "if(!this.value) this.type='text'"})
+                                                        'onblur' : "if(!this.value) this.type='text'"}),
+            'Name' : forms.widgets.TextInput(attrs={'type' : 'text'})
         }
     
     def clean(self):

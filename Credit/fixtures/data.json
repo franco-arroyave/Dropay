@@ -1,6 +1,7 @@
 [
     {
         "model": "Credit.Periodicity",
+        "pk" : 1,
         "fields": {
             "Description": "Annually"
         }

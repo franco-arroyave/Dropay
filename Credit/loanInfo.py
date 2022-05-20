@@ -1,4 +1,5 @@
 import datetime
+from dateutil.relativedelta import relativedelta
 import numpy_financial as npf
 
 class LoanInfo :
@@ -10,16 +11,19 @@ class LoanInfo :
         self.InterestRate = float(system.get('InterestRate'))
         self.Ammount = float(system.get('Ammount'))
         self.StartDate = datetime.datetime.strptime(system.get('StartDate'), '%Y-%m-%d')
-        self.loanPeriod = 1
+        self.loanPeriod = int(system.get('loanPeriod'))
+        self.gralPeriod = 1
 
     def loanSummary(self):
         loanContext = dict()
         loanContext['monthsTerm'] = LoanInfo.monthsTerm(self)
-        loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self, 12)
+        self.gralPeriod = 1
+        loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self, 1)
         loanContext['monthlyPayment'] = "%.2f" % LoanInfo.monthlyPayment(self)
         return loanContext
 
     def monthsTerm(self):
+        self.gralPeriod = 12
         months = 0
         if self.termCalendar == "Years":
             months = self.Term * 12
@@ -28,21 +32,53 @@ class LoanInfo :
         else :
             months = self.Term
         return months
+    
+    def weeksTerm(self) :
+        self.gralPeriod = 52
+        weeks = 0
+        if self.termCalendar == "Years":
+            weeks = self.Term * 52
+        elif self.termCalendar == "Days":
+            weeks = self.Term / 7
+        else :
+            weeks = self.Term * 4
+        return weeks
+    
+    def daysTerm(self) :
+        self.gralPeriod = 365
+        days = 0
+        if self.termCalendar == "Years":
+            days = self.Term * 365
+        elif self.termCalendar == "Days":
+            days = self.Term
+        else :
+            days = self.Term * 30
+        return days
 
-    def convertInterestRate(self, nPeriod):
+    def convertInterestRate(self, Period):
         if self.Compound == "EM" :
-            if nPeriod == 1 :
-                return 100*(pow(1+self.InterestRate/100, 12)-1)
-            else :
-                return 100*(pow(1+self.InterestRate/100, 12/nPeriod)-1)
+            return 100*(pow(1+self.InterestRate/100, 12/self.gralPeriod)-1)
         else:
-            if nPeriod == 12 :
-                return self.InterestRate
-            else :
-                return 100*(pow(1+self.InterestRate/100, nPeriod/12)-1)
+            return 100 * (pow(1+self.InterestRate/100, 1/self.gralPeriod)-1)
+    
+    def convertPeriod(self) :
+        if self.loanPeriod == 1 : #Annually
+            return 1 * self.Term
+        elif self.loanPeriod == 2 : #Monthly
+            term = LoanInfo.monthsTerm(self)
+            return term
+        elif self.loanPeriod == 3 : #Weekly
+            term = LoanInfo.weeksTerm(self)
+            return term
+        else :
+            term = LoanInfo.daysTerm(self)
+            return term #Daily
     
     def monthlyPayment(self):
-        return -1*npf.pmt(LoanInfo.convertInterestRate(self, 12)/100, LoanInfo.monthsTerm(self), self.Ammount)
+        nper = LoanInfo.convertPeriod(self)
+        rate = LoanInfo.convertInterestRate(self, nper)
+        print(str(nper)+ ' ' + str(rate))
+        return -1*npf.pmt(rate/100, nper, self.Ammount)
 
     def loanChart(self):
         chartInfo = dict()
@@ -53,22 +89,29 @@ class LoanInfo :
         return chartInfo
 
     def chartCategories(self) :
-        months = LoanInfo.monthsTerm(self)
+        # months = LoanInfo.monthsTerm(self)
         strCategories = ''
-        for i in range(months) :
-            newDate = (self.StartDate + datetime.timedelta(i * 30)).date().strftime('%d/%m/%Y')
-            strCategories +=  '\'' + str(newDate) + '\', '
+        for i in range(LoanInfo.convertPeriod(self)) :
+            if self.loanPeriod == 1 :
+                newDate = self.StartDate + relativedelta(years=i)
+            elif self.loanPeriod == 2 :
+                newDate = self.StartDate + relativedelta(months=i)
+            elif self.loanPeriod == 3 :
+                newDate = self.StartDate + relativedelta(weeks=i)
+            else :
+                newDate = self.StartDate + relativedelta(days=i)
+            strCategories +=  '\'' + str(newDate.date().strftime('%d/%m/%Y')) + '\', '
         return strCategories
     
     def chartInterest(self) :
-        months = LoanInfo.monthsTerm(self)
+        # months = LoanInfo.monthsTerm(self)
         mpt = LoanInfo.monthlyPayment(self)
         balance = self.Ammount
         interest = 0
         principal = 0
         strInterest = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
-        for i in range(months) :
+        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
+        for i in range(LoanInfo.convertPeriod(self)) :
             interest = interestRate*balance
             principal = mpt - interest
             balance = balance - principal
@@ -76,14 +119,14 @@ class LoanInfo :
         return strInterest
 
     def chartPrincipal(self) :
-        months = LoanInfo.monthsTerm(self)
+        #months = LoanInfo.monthsTerm(self)
         mpt = LoanInfo.monthlyPayment(self)
         balance = self.Ammount
         interest = 0
         principal = 0
         strPrincipal = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
-        for i in range(months) :
+        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
+        for i in range(LoanInfo.convertPeriod(self)) :
             interest = interestRate*balance
             principal = mpt - interest
             balance = balance - principal
@@ -91,14 +134,14 @@ class LoanInfo :
         return strPrincipal
 
     def chartBalance(self) :
-        months = LoanInfo.monthsTerm(self)
+        # months = LoanInfo.monthsTerm(self)
         mpt = LoanInfo.monthlyPayment(self)
         balance = self.Ammount
         interest = 0
         principal = 0
         strBalance = ''
-        interestRate = pow(1+LoanInfo.convertInterestRate(self, 12)/100, 1/12)-1
-        for i in range(months) :
+        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
+        for i in range(LoanInfo.convertPeriod(self)) :
             interest = interestRate*balance
             principal = mpt - interest
             balance = balance - principal

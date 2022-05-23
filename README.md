@@ -23,6 +23,27 @@ Ejecuta el siguiente comando en la consola para instalar Django
 
 `$ python -m pip install Django`
 
+### Hacer migraciones
+Con las migraciones se realiza la carga de los modelos en la base de datos.
+
+#### Requisitos
+- Se debe tener instalado y ejecutando el servidor de bases de datos. En el caso de este proyecto se utilizó MySQL con XAMPP
+- Crear la base de datos y dejarla sin tablas debido a que Django se encarga de crearlas.
+- Tener los modelos con la estructura de las tablas. En el caso de este proyecto se crearon los siguientes modelos:
+  - [Modelo de Credit](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/models.py), aquí se encuentra toda la información relacionada con las tablas que afectan el módulo Créditos.
+  - [Modelo de User](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/User/models.py), aquí se encuentran los modelos que afectan las tablas del módulo Usuario.
+
+#### Comandos a ejecutar
+Antes de ejecutar los siguientes comandos, ubicarse en la carpeta que contiene el proyecto en la consola.
+1. `$ python manage.py makemigrations`
+2. `$ python manage.py migrate`
+
+### Carga de datos
+Después de crear la base de datos, se realiza una carga inicial para añadir algunos registros en las tablas.
+
+1. Revisar los datos en el archivo [fixtures/data.json](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/fixtures/data.json), los cuales van a ser cargados en la base de datos.
+2. Ejecutar el siguiente comando en la consola: `$ django-admin loaddata data.json`
+
 ## Clases Desarrolladas
 ### 1. User
 #### Crear usuario

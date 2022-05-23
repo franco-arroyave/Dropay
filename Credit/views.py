@@ -8,7 +8,7 @@ from .loanInfo import LoanInfo
 # Create your views here.
 
 def loans(request):
-    loansList = Loan.objects.all()
+    loansList = Loan.objects.filter(UserID_id=request.user.id)
     return render(request, 'pages/index.html', {'loans': loansList})
 
 def newLoan(request):

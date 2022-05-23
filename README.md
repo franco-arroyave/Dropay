@@ -45,8 +45,22 @@ El usuario registrado ya puede ingresar a la aplicación con sus credenciales.
 ### 3. Loan
 Después de haber iniciado sesión, el usuario puede empezar a calcular y añadir sus creditos.
 
+- Se añaden los paths correspondientes para el proceso de crear y almacenar los créditos en [urls.py](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/urls.py).
+- Se crean los Templetes:
+  - [index.html](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/templates/pages/index.html), contiene la estructura de la página de inicio de los créditos. Allí se pueden visualizar los créditos creados y se encuentra el botón para añadir nuevos.
+  - [new.html](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/templates/pages/new.html), contiene el formulario con los campos necesarios para poder calcular el crédito.
+  - [loanSummary.html](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/templates/pages/loanSummary.html), muestra los resultados obtenidos después de ingresar los datos básicos del crédito. Entre la información calculada se encuentra la cuota que se debe pagar y una grafica que simula el comportamiento de los pagos y el balance del crédito.
+- En el archivo [views.py](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/views.py) se encuentran las funciones que se encargan de cargar los templetes dependiendo de la URL a la que vaya siendo dirigido el usuario.
+- En el archivo [loanInfo.py](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/loanInfo.py) se realizaron todos los calculos necesarios para el crédito y la grafica. Se tienen funciones como:
+  - `def convertInterestRate(self, Period):` que se encarga de convertir la tasa de interés dependiendo de las necesidades de la función que la llama.
+  - `def convertPeriod(self):` convierte el plazo ingresado en el periodo de pagos que selecciona el usuario. Por ejemplo, convierte Años en Meses, Semanas o Días.
+  - `def monthlyPayment(self):` calcula la cuota que el usuario debe pagar por periodo.
+
 ![AddLoan](https://user-images.githubusercontent.com/78455296/169861773-85e15a9d-4e61-4793-979b-4bd472a9807c.gif)
 
 ### 4. Payment
+> Under construction
 ### 5. xPayment
+> Under construction
 ### 6. Admin Panel
+> Under construction

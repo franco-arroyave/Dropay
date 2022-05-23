@@ -19,6 +19,10 @@ Ejecuta el siguiente comando en la consola para instalar Django
 ![SignUp](https://user-images.githubusercontent.com/78455296/169847885-b727f7e0-63fc-44d4-bbdb-d5651ecd6259.gif)
 
 ### 2. UserCredential
+![SignIn](https://user-images.githubusercontent.com/78455296/169861722-569c5e7f-4390-4fc8-a822-57895f8d96e5.gif)
+
 ### 3. Loan
+![AddLoan](https://user-images.githubusercontent.com/78455296/169861773-85e15a9d-4e61-4793-979b-4bd472a9807c.gif)
+
 ### 4. Payment
 ### 5. xPayment

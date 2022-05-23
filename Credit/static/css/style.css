@@ -221,6 +221,25 @@ div.loanList--empty div.text-container{
     background-color: white;
 }
 
+div.loanList--full {
+    margin-top: 1%;
+    padding-top: 30px;
+}
+
+div.loanList--full img.add-button{
+    position: relative;
+    bottom: -40px;
+    background-color: white;
+}
+
+div.loanList--full div.text-container{
+    width: 800px;
+    padding: 50px 10px 0px 10px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    background-color: white;
+}
+
 div.form--addLoan {
     background-color: white;
     margin-top: 5%;

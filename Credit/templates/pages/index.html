@@ -1,44 +1,63 @@
 {% extends "base.html" %}
-{% block titulo %} Loans {% endblock %}
+
+{% block titulo %} Home {% endblock %}
 
 {% block contenido %}  
 
 {%include '../navbar.html'%}
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <a name="" id="" class="btn btn-success" href="{% url 'newLoan' %}" role="button">New Loan</a>
-        </div>
-        
-        <div class="card-body">
-            <h4 class="card-title">Loans</h4>
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Description</th>
-                        <th>Loan Amount</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for loan in loans %}
-                    <tr>
-                        <td scope="row">{{ loan.loanid }}</td>
-                        <td>{{ loan.name }}</td>
-                        <td>{{ loan.Amount }}</td>
-                        <td>
-                            <a name="" id="" class="btn btn-info" href="{% url 'loanPayment' %}" role="button">Pagar</a>
-                            <a name="" id="" class="btn btn-danger" href="#" role="button">Eliminar</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            
-        </div>
-    </div>
-</div>
 
+{%load static%}
+
+<div class="container">
+    {% if loans is not None %}
+        
+        <!-- Loan card -->
+        <div class="loanList--full d-flex align-items-center flex-column">
+
+            <a href="{%url 'newLoan'%}"><img src="{% static 'images/circle-plus.png'%}" class="add-button" alt="Add" width="80px"></a>
+
+            <div class="text-container">
+                {% for loan in loans %}
+                <div class="row" style="margin: 0px 0px 20px 0px;">
+                    <div class="col-3" style="background-color: #41c9eb; display: flex; align-items: center; border-radius: 15px 0px 0px 15px;">
+                        <p style="color: white; font-weight: 620; font-size: 24px; margin-bottom: 0px;">{{ loan.Name }}</p>
+                        
+                    </div>
+                    <div class="col-8" style="border: 1px solid #41c9eb; box-shadow: 4px 2px 6px #00000017;">
+                        <p style="font-weight: 700; font-size: 22px; margin-bottom: 7px;">$ {{ loan.Ammount }}</p>
+                        <table>
+                            <tr>
+                                <td style="color: #01048a; font-weight: 600; font-size: 16px; min-width: 150px;">Balance</td>
+                                <td style="color: #DED601; font-weight: 600; font-size: 16px; min-width: 150px;">Interest Rate</td>
+                                <td style="color: #01048a; font-weight: 600; font-size: 16px; min-width: 150px;">Start Date</td>
+                            </tr>
+                            <tr>
+                                <td style="color: #5e5e5e; font-weight: 500; font-size: 16px;">$ 0</td>
+                                <td style="color: #5e5e5e; font-weight: 500; font-size: 16px;">{{ loan.InterestRate }}% EA</td>
+                                <td style="color: #5e5e5e; font-weight: 500; font-size: 16px;">{{ loan.StartDate }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-1" style="background-color: #41c9eb; display: flex; align-items: center; border-radius: 0px 15px 15px 0px;">
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <a href="{% url 'loanPayment' %}"><img src="{% static 'images/credit-card.svg'%}" alt="Pay Loan" style="width: 25px"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <a href="#"><img src="{% static 'images/trash-fill.svg'%}" alt="Delete Loan" style="width: 25px"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        {% empty %}
+            <center><p>You haven't added loans yet, it's a good time to add one!</p></center>
+        {% endfor %}
+        </div>
+        </div>
+</div>
+    {% endif %}
 {% endblock %}

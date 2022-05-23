@@ -1,14 +1,14 @@
 # Dropay: Calculadora Financiera
 Dropay es una calculadora financiera donde las personas pueden realizar cálculos relacionados con sus créditos de forma fácil y rápida, permitiéndoles almacenar el historial de transacciones para realizarles seguimiento y poder organizar sus finanzas.
 
-- [Set Up](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#set-up)
-- [Clases Desarrolladas](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#clases-desarrolladas)
-  - [User](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#1-user)
-  - [User Credential](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#2-usercredential)
-  - [Loan](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#3-loan)
-  - [Payment](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#4-payment)
-  - [xPayment](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#4-payment)
-  - [Admin Panel](https://github.com/franco-arroyave/Dropay/edit/RestructureProyect/README.md#6-admin-panel)
+- [Set Up](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#set-up)
+- [Clases Desarrolladas](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#clases-desarrolladas)
+  - [User](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#1-user)
+  - [User Credential](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#2-usercredential)
+  - [Loan](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#3-loan)
+  - [Payment](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#4-payment)
+  - [xPayment](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#5-xpayment)
+  - [Admin Panel](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#6-admin-panel)
 
 ## Set Up
 Para el desarrollo de esta aplicación se uilizó el lenguaje de programación Python y su framework para Desarrollo Web, Django.

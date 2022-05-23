@@ -77,7 +77,6 @@ class LoanInfo :
     def monthlyPayment(self):
         nper = LoanInfo.convertPeriod(self)
         rate = LoanInfo.convertInterestRate(self, nper)
-        print(str(nper)+ ' ' + str(rate))
         return -1*npf.pmt(rate/100, nper, self.Ammount)
 
     def loanChart(self):

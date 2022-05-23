@@ -40,3 +40,27 @@ def addLoanSummary(request):
     else :
         form = addLoanForm()
         return render(request, 'pages/new.html', {'form': form})
+
+def saveLoanInfo(request):
+    if request.method == "POST":
+
+        system = request.POST
+        form = addLoanForm(system)
+
+        if form.is_valid() :
+            saveLoan = form.save(commit=False)
+            saveLoan.UserID_id = request.user.id
+            saveLoan.Periodicity_id = system.get('loanPeriod')
+            saveLoan.monthlyPayment = system.get('monthlyPayment')
+            saveLoan.save()
+
+            messages.add_message(request, messages.SUCCESS, 'Loan ' + system.get('Name') + ' added succesfully!')
+            return redirect('loans')
+
+        else :
+            messages.add_message(request, messages.ERROR, form.errors)
+            return render(request, 'pages/loanSummary.html')
+        
+    else :
+        form = addLoanForm()
+        return render(request, 'pages/new.html', {'form': form})

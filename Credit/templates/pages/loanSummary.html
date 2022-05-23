@@ -10,7 +10,7 @@
 
 <div class="container form--addLoan">
     <div class="row">
-        <h3>{{system.Name}}</h3>
+        <h3>{{system.Name}} {{system}}</h3>
         <br><br>
     </div>
     <div class="row">
@@ -33,11 +33,40 @@
         </div>
     </div>
     <div class="row">
-        <button class="button--regular" type="submit">Submit</button>
+        <a href="{% url 'loans' %}"><button class="button--regular" type="submit" onclick="saveLoanInfo()">Save</button></a>
     </div>
     
 </div>
 <script>
+//  POST request to save de loan data
+
+    function saveLoanInfo(){
+        const Url = 'saveLoan';
+        $.post(
+            Url,
+            {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                Name : '{{system.Name}}',
+                Ammount : '{{system.Ammount}}',
+                Term : '{{loanInfo.monthsTerm}}',
+                InterestRate : '{{loanInfo.interestEA}}',
+                StartDate : '{{system.StartDate}}',
+                DisbursementDate : '{{system.DisbursementDate}}',
+                loanPeriod : '{{system.loanPeriod}}',
+                monthlyPayment : '{{loanInfo.monthlyPayment}}',
+                termCalendar : '{{system.termCalendar}}',
+                Compound : '{{system.Compound}}'
+            },
+            function(data, status) {
+                if(status === "success") {
+                    console.log("Post successfully created!");
+                    window.location.href = 'home'
+                }
+            },
+            "json"
+        )
+    }
+
     Highcharts.chart('graphic', {
         chart: {
             type: 'areaspline',

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "User.TypeID",
+        "fields": {
+            "Description": "Cédula de Ciudadania"
+        }
+    },
+    {
+        "model": "User.TypeID",
+        "fields": {
+            "Description": "Tarjeta de identidad"
+        }
+    },
+    {
+        "model": "User.TypeID",
+        "fields": {
+            "Description": "Cédula de extrangeria"
+        }
+    },
+    {
+        "model": "User.TypeID",
+        "fields": {
+            "Description": "NIT"
+        }
+    }
+]

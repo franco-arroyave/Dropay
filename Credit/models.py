@@ -1,5 +1,5 @@
 from django.db import models
-from User.models import xUser
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class Periodicity(models.Model):
 
 class Loan(models.Model):
     LoanID = models.AutoField(primary_key=True)
-    UserID = models.ForeignKey(xUser,on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User,on_delete=models.CASCADE)
     Name = models.TextField(null=True, max_length=50, verbose_name="Nombre")
     Ammount = models.FloatField(null=True, verbose_name='Monto')
     Term = models.IntegerField(null=True, verbose_name='Plazo')

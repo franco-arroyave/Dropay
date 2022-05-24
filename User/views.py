@@ -22,7 +22,6 @@ def signUp(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            print(form.cleaned_data['documentType'])
             username = form.cleaned_data['username']
             messages.success(request, f'Ususario {username} creado exitosamente')
             return redirect('login')
@@ -34,3 +33,18 @@ def signUp(request):
         # messages.success(request, f'Hello register')
     context = {'form' : form}
     return render(request, 'pages/signUp.html', context)
+
+
+
+
+    #def insert_init_documentType(apps, schema_editor):
+    #    typeID = apps.get_model('User', 'TypeID')
+    #    types = ['Cédula', 'Cédula Extrangeria','NIT', 'Tarjeta de Identidad']
+    #    for i in types:
+    #        typeID.objects.create(Description = i)
+
+    #def undo_insert_documentType(apps, schema_editor):
+    #    typeID = apps.get_model('User', 'TypeID')
+    #    typeID.objects.all().delete()
+
+#     migrations.RunPython(insert_init_documentType, reverse_code=undo_insert_documentType)

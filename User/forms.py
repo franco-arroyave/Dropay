@@ -36,24 +36,24 @@ class UserRegisterForm(UserCreationForm):
 
 
 
-    def clean(self, *args , **kwargs):
-        super(UserRegisterForm).clean(*args ,**kwargs) # check if password 1 and password2 match each other
-        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:#check if both pass first validation
-            if self.cleaned_data['password1'] != self.cleaned_data['password2']: # check if they match each other
-                raise forms.ValidationError("Passwords don't match each other")
+    #def clean(self, *args , **kwargs):
+    #    super(UserRegisterForm).clean(*args ,**kwargs) # check if password 1 and password2 match each other
+    #    if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:#check if both pass first validation
+    #        if self.cleaned_data['password1'] != self.cleaned_data['password2']: # check if they match each other
+    #            raise forms.ValidationError("Passwords don't match each other")
 
 
 
-class ProfileRegisterForm(forms.ModelForm):
-    
-    document = forms.CharField(label='Document', widget=forms.TextInput)
-    documentType = forms.ModelChoiceField(empty_label='Document Type', queryset=TypeID.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
-    data_policy = forms.CheckboxInput(required=True, widget=forms.CheckboxInput, label='Acept data policy')
+#class ProfileRegisterForm(forms.ModelForm):
+#    
+#    document = forms.CharField(label='Document', widget=forms.TextInput)
+#    documentType = forms.ModelChoiceField(empty_label='Document Type', queryset=TypeID.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
+#    data_policy = forms.CheckboxInput(required=True, widget=forms.CheckboxInput, label='Acept data policy')
 
-    class Meta:
-        model = Profile
-        fields = ['document', 
-        'documentType', 
-        'data_policy']
+#    class Meta:
+#        model = Profile
+#        fields = ['document', 
+#        'documentType', 
+#        'data_policy']
 
-        help_texts = {k:"" for k in fields}
+#        help_texts = {k:"" for k in fields}

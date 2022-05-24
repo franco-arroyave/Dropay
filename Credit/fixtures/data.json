@@ -8,18 +8,21 @@
     },
     {
         "model": "Credit.Periodicity",
+        "pk" : 2,
         "fields": {
             "Description": "Monthly"
         }
     },
     {
         "model": "Credit.Periodicity",
+        "pk" : 3,
         "fields": {
             "Description": "Weekly"
         }
     },
     {
         "model": "Credit.Periodicity",
+        "pk" : 4,
         "fields": {
             "Description": "Daily"
         }

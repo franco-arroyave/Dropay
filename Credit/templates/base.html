@@ -26,7 +26,26 @@
     {% block contenido %} {% endblock %}
 
     {% if messages %}
-    <div class="row">
+    <div id="miModal" class="modals modal-dialog-centered">
+      <div class="modal-content modal-contenido">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Alert</h5>
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="document.getElementById('miModal').remove();">-->
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="document.getElementById('miModal').remove();">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!---<div class="row">
       <div class="container">
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -35,7 +54,7 @@
         </div>
         {% endfor %}
       </div>
-    </div>
+    </div>--->
     {% endif %}
 
     <!-- Bootstrap JavaScript Libraries -->

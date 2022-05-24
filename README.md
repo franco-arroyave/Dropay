@@ -11,7 +11,7 @@ Dropay es una calculadora financiera donde las personas pueden realizar cálculo
   - [Admin Panel](https://github.com/franco-arroyave/Dropay/tree/RestructureProyect#6-admin-panel)
 
 ## URL Funcional
-El siguiente enlace lo va a dirigir al servidor alojado en la web: [www.dropay.site](http://www.dropay.site:5080/)
+El siguiente enlace lo va a dirigir al servidor que aloja el proyecto en la web: [www.dropay.site](http://www.dropay.site:5080/)
 
 ## Set Up
 Para el desarrollo de esta aplicación se uilizó el lenguaje de programación Python y su framework para Desarrollo Web, Django.

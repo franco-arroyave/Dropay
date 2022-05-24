@@ -45,7 +45,7 @@ Antes de ejecutar los siguientes comandos, ubicarse en la carpeta que contiene e
 Después de crear la base de datos, se realiza una carga inicial para añadir algunos registros en las tablas.
 
 1. Revisar los datos en el archivo [fixtures/data.json](https://github.com/franco-arroyave/Dropay/blob/RestructureProyect/Credit/fixtures/data.json), los cuales van a ser cargados en la base de datos.
-2. Ejecutar el siguiente comando en la consola: `$ django-admin loaddata data.json`
+2. Ejecutar el siguiente comando en la consola: `$ python manage.py loaddata data.json`
 
 ## Clases Desarrolladas
 ### 1. User

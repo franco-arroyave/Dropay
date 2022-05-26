@@ -49,7 +49,7 @@
                                 <td align="center">
                                     <form action="{% url 'loan_delete' loan.LoanID %}" method="post" name="loan_delete">
                                         {% csrf_token %}
-                                        <input type="image" src="{% static 'images/trash-fill.svg'%}" alt="Submit" class="icon-action"/>
+                                        <input type="image" src="{% static 'images/trash-fill.svg'%}" alt="Submit" class="icon-action" onclick="return confirm('Are you sure you want to delete {{ loan.Name }} permanently?')"/>
                                     </form>
                                 </td>
                             </tr>

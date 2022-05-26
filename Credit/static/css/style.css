@@ -35,7 +35,10 @@ body {
 }
 
 .signUp_Form form{
-    height: 600px;
+}
+
+.overFlowForm{
+    height: 100vh;
     overflow: auto;
 }
 
@@ -156,7 +159,8 @@ input[type=checkbox]:checked{
 
 .logIn_Form--finalText {
     font-size: 16px;
-    padding-top: 100px;
+    padding-top: 30px;
+    padding-bottom: 40px;
     margin: auto;
     display: table;
     opacity: 0.8;

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ProfileRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.views import View
@@ -15,36 +15,25 @@ from django.contrib.auth import login
 def index(request):
     return render(request, "pages/index.html")
 
-
-
 def signUp(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
+        userForm = UserRegisterForm(request.POST)
+        profileForm = ProfileRegisterForm(request.POST)
+        if userForm.is_valid() and profileForm.is_valid:
+            user = userForm.save(commit = False)
+            user.save()
+            profile = profileForm.save(commit = False)
+            
+            profile.user = user
+            profile.save()
+            username = userForm.cleaned_data['username']
             messages.success(request, f'Ususario {username} creado exitosamente')
             return redirect('login')
         else:
-            messages.add_message(request, messages.ERROR, form.errors)
-            # messages.success(request, f'Error al diligenciar el formulario')
+            messages.add_message(request, messages.ERROR, userForm.errors)
+            messages.add_message(request, messages.ERROR, profileForm.errors)
     else:
-        form = UserRegisterForm()
-        # messages.success(request, f'Hello register')
-    context = {'form' : form}
+        userForm = UserRegisterForm()
+        profileForm = ProfileRegisterForm()
+    context = {'userForm' : userForm, 'profileForm' : profileForm}
     return render(request, 'pages/signUp.html', context)
-
-
-
-
-    #def insert_init_documentType(apps, schema_editor):
-    #    typeID = apps.get_model('User', 'TypeID')
-    #    types = ['Cédula', 'Cédula Extrangeria','NIT', 'Tarjeta de Identidad']
-    #    for i in types:
-    #        typeID.objects.create(Description = i)
-
-    #def undo_insert_documentType(apps, schema_editor):
-    #    typeID = apps.get_model('User', 'TypeID')
-    #    typeID.objects.all().delete()
-
-#     migrations.RunPython(insert_init_documentType, reverse_code=undo_insert_documentType)

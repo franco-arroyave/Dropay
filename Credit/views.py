@@ -1,5 +1,5 @@
 from audioop import reverse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Loan
 from django.contrib import messages
@@ -54,7 +54,7 @@ def saveLoanInfo(request):
             saveLoan.monthlyPayment = system.get('monthlyPayment')
             saveLoan.save()
 
-            messages.add_message(request, messages.SUCCESS, 'Loan ' + system.get('Name') + ' added succesfully!')
+            messages.add_message(request, messages.SUCCESS, 'Loan ' + system.get('Name') + ' added successfully!')
             return redirect('loans')
 
         else :
@@ -64,3 +64,13 @@ def saveLoanInfo(request):
     else :
         form = addLoanForm()
         return render(request, 'pages/new.html', {'form': form})
+
+def deleteLoan(request, pk):
+    loan = get_object_or_404(Loan, LoanID = pk)
+
+    if request.method == 'POST':
+        loan.delete()
+        messages.add_message(request, messages.SUCCESS, 'Loan deleted successfully!')
+        return redirect('loans')
+        
+    return render(request, 'pages/index.html', {'loan' : loan})

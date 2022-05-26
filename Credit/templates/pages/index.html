@@ -42,12 +42,15 @@
                         <table width="100%">
                             <tr>
                                 <td align="center">
-                                    <a href="{% url 'loanPayment' %}"><img src="{% static 'images/credit-card.svg'%}" alt="Pay Loan" style="width: 25px"></a>
+                                    <a href="{% url 'loanPayment' %}"><img src="{% static 'images/credit-card.svg'%}" class="icon-action" alt="Pay Loan" ></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <a href="#"><img src="{% static 'images/trash-fill.svg'%}" alt="Delete Loan" style="width: 25px"></a>
+                                    <form action="{% url 'loan_delete' loan.LoanID %}" method="post" name="loan_delete">
+                                        {% csrf_token %}
+                                        <input type="image" src="{% static 'images/trash-fill.svg'%}" alt="Submit" class="icon-action"/>
+                                    </form>
                                 </td>
                             </tr>
                         </table>
@@ -59,5 +62,12 @@
         </div>
         </div>
 </div>
+<style>
+    .icon-action {
+        width: 25px; 
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(270deg) brightness(105%) contrast(103%);
+    }
+</style>
     {% endif %}
 {% endblock %}
+

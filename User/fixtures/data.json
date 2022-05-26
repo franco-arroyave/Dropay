@@ -2,19 +2,19 @@
     {
         "model": "User.TypeID",
         "fields": {
-            "Description": "Cédula Ciudadania"
+            "Description": "Cédula Ciudadanía"
         }
     },
     {
         "model": "User.TypeID",
         "fields": {
-            "Description": "Tarjeta identidad"
+            "Description": "Tarjeta Identidad"
         }
     },
     {
         "model": "User.TypeID",
         "fields": {
-            "Description": "Cédula extrangeria"
+            "Description": "Cédula Extranjería"
         }
     },
     {

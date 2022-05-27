@@ -5,19 +5,24 @@ from .models import Loan
 from django.contrib import messages
 from .forms import addLoanForm
 from .loanInfo import LoanInfo
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='login')
 def loans(request):
     loansList = Loan.objects.filter(UserID_id=request.user.id)
     return render(request, 'pages/index.html', {'loans': loansList})
 
+@login_required(login_url='login')
 def newLoan(request):
     form = addLoanForm()
     return render(request, 'pages/new.html', {'form': form})
 
+@login_required(login_url='login')
 def loanPayment(request):
     return render(request, 'pages/payment.html')
 
+@login_required(login_url='login')
 def addLoanSummary(request):
 
     if request.method == "POST":
@@ -65,6 +70,7 @@ def saveLoanInfo(request):
         form = addLoanForm()
         return render(request, 'pages/new.html', {'form': form})
 
+@login_required(login_url='login')
 def deleteLoan(request, pk):
     loan = get_object_or_404(Loan, LoanID = pk)
 

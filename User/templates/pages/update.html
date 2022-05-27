@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block titulo %} Home {% endblock %}
+
+{% block contenido %}  
+
+{%include '../navbar.html'%}
+
+{%load static%}
+
+<div class="container">
+    <div class="signUp_Form">
+        <form class="form" method="post">
+                    
+            {% csrf_token %}
+
+            <h2>Profile</h2>
+
+            <fieldset class="input-field">
+                {{ userForm.first_name }}
+                <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
+            </fieldset>
+
+            <fieldset class="input-field">
+                {{ userForm.last_name }}
+                <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
+            </fieldset>
+
+            <fieldset class="input-field">
+                {{ userForm.email }}
+                <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
+            </fieldset>
+                    
+            <table>
+                <tr>
+                    <td>
+                        <fieldset class="input-field">
+                            {{ userForm.password1 }}
+                            <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                        </fieldset>
+                    </td>
+                    <td>
+                        <fieldset class="input-field">
+                            {{ userForm.password2 }}
+                            <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+
+            <button type="submit" id="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .icon-action {
+        width: 25px; 
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(270deg) brightness(105%) contrast(103%);
+    }
+</style>
+{% endblock %}
+
+

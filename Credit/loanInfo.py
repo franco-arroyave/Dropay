@@ -21,7 +21,7 @@ class LoanInfo :
         loanContext['interestEA'] = "%.2f" % LoanInfo.convertInterestRate(self, 1)
         loanContext['monthlyPayment'] = "%.2f" % LoanInfo.monthlyPayment(self)
         return loanContext
-
+    
     def monthsTerm(self):
         self.gralPeriod = 12
         months = 0

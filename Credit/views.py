@@ -25,7 +25,6 @@ def addLoanSummary(request):
         if form.is_valid() :
             saveLoan = form.save(commit=False)
             saveLoan.UserID_id = request.user.id
-            saveLoan.Periodicity_id = 1
             # saveLoan.save()
 
             context = {}
@@ -33,6 +32,8 @@ def addLoanSummary(request):
             context['system'] = system
             context['loanInfo'] = LoanInfo(system).loanSummary()
             context['loanChart'] = LoanInfo(system).loanChart()
+            # context['loanSchedule']
+            #print(context['loanSchedule'])
             return render(request, 'pages/loanSummary.html', context)
         else :
             messages.add_message(request, messages.ERROR, form.errors)

@@ -32,52 +32,42 @@
             <div id="graphic"></div>
         </div>
     </div>
-    <div class="row" style="margin-top: 50px;">
-        <!-- <div class="col-4">
-            <div class="card">
-                <div style="width: 100%; height: 200px; background-color: aqua;"></div>
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-        </div> -->
+    <div class="row" style="margin-top: 100px;">
         <div class="col-4">
-            <div onclick="return confirm('Show table')" style="cursor: pointer;">
-                <div style="background: rgb(203,245,255); background: linear-gradient(108deg, rgba(203,245,255,1) 0%, rgba(98,213,242,1) 51%, rgba(71,153,228,1) 100%); height: 130px; border-radius: 8px 8px 0px 0px;">
-                <div style="background-image: url({% static 'images/table-summary.svg' %}); background-repeat: no-repeat; background-position: right bottom; height: 100%;">
-                    <h4 style="color:#2F3646; padding: 20px 20px 20px 20px;">Amortization Schedule</h4>
+            <div onclick="return confirm('Show table')">
+                <div class="action-card">
+                    <div class="action-card-img" style="background-image: url({% static 'images/table-summary.svg' %});">
+                        <h4>Amortization Schedule</h4>
+                    </div>
                 </div>
-                </div>
-                <div style="background-color: #f0f0f0; border-radius: 0px 0px 8px 8px;">
-                    <p style="padding: 20px 20px 20px 20px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Lorem ipsum dolor sit amet consectetur, adipisicing elit.Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                <div class="action-card-text">
+                    <p>Show a table that lists each regular payment on a loan over time.</p>
                 </div>
             </div>
         </div>
 
         <div class="col-4">
             <div onclick="return confirm('Add ordinary payment')">
-                <div style="background: rgb(203,245,255); background: linear-gradient(108deg, rgba(203,245,255,1) 0%, rgba(98,213,242,1) 51%, rgba(71,153,228,1) 100%); height: 130px; border-radius: 8px 8px 0px 0px;">
-                    <div style="background-image: url({% static 'images/money-summary.svg' %}); background-repeat: no-repeat; background-position: right bottom; height: 100%;">
-                        <h4 style="color:#2F3646; padding: 20px 20px 20px 20px;">Ordinary Payment</h4>
+                <div class="action-card">
+                    <div class="action-card-img" style="background-image: url({% static 'images/money-summary.svg' %});">
+                        <h4>Ordinary Payments</h4>
                     </div>
                 </div>
-                <div style="background-color: #f0f0f0; border-radius: 0px 0px 8px 8px;">
-                    <p style="padding: 20px 20px 20px 20px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+                <div class="action-card-text">
+                    <p>Add payments to your loan according to the Amortization Schedule</p>
                 </div>
             </div>
         </div>
 
         <div class="col-4">
             <div onclick="return confirm('Add extra payment')">
-                <div style="background: rgb(203,245,255); background: linear-gradient(108deg, rgba(203,245,255,1) 0%, rgba(98,213,242,1) 51%, rgba(71,153,228,1) 100%); height: 130px; border-radius: 8px 8px 0px 0px;">
-                    <div style="background-image: url({% static 'images/coin-summary.svg' %}); background-repeat: no-repeat; background-position: right bottom; height: 100%;">
-                        <h4 style="color:#2F3646; padding: 20px 20px 20px 20px;">Extra Payment</h4>
+                <div class="action-card">
+                    <div class="action-card-img" style="background-image: url({% static 'images/coin-summary.svg' %});">
+                        <h4>Extra Payments</h4>
                     </div>
                 </div>
-                <div style="background-color: #f0f0f0; border-radius: 0px 0px 8px 8px;">
-                    <p style="padding: 20px 20px 20px 20px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+                <div class="action-card-text">
+                    <p>Add some extra payments to the Amortization Schedule</p>
                 </div>
             </div>
         </div>
@@ -89,6 +79,39 @@
     
 </div>
 
+<style>
+    div.action-card {
+        background: rgb(203,245,255); 
+        background: linear-gradient(108deg, rgba(203,245,255,1) 0%, rgba(98,213,242,1) 51%, rgba(71,153,228,1) 100%); 
+        height: 130px; 
+        border-radius: 8px 8px 0px 0px; 
+        box-shadow: 1px 3px 10px #00000017;
+    }
+
+    div.action-card:hover {
+        background: rgb(255,255,255);
+        background: linear-gradient(86deg, rgba(255,255,255,1) 0%, rgba(106,212,255,1) 100%);
+        cursor: pointer;
+    }
+
+    div.action-card h4{
+        color:#2F3646; padding: 20px 20px 20px 20px;
+    }
+
+    div.action-card-text {
+        background-color: #f0f0f0; border-radius: 0px 0px 8px 8px;
+    }
+
+    div.action-card-text p{
+        padding: 20px 20px 20px 20px;
+    }
+
+    div.action-card-img {
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        height: 100%;
+    }
+</style>
 
 <script>
 //  POST request to save de loan data

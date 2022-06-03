@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-p9iaajs!vcpl_7$z_lin52r6o87ire0pe%3if@qm+-sk+$i*_!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','www.dropay.site','www.dropay.site:5080']
 
 
 # Application definition

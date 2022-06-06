@@ -37,8 +37,7 @@ def addLoanSummary(request):
             context['system'] = system
             context['loanInfo'] = LoanInfo(system).loanSummary()
             context['loanChart'] = LoanInfo(system).loanChart()
-            # context['loanSchedule']
-            #print(context['loanSchedule'])
+            context['loanSchedule'] = LoanInfo(system).loanSchedule()
             return render(request, 'pages/loanSummary.html', context)
         else :
             messages.add_message(request, messages.ERROR, form.errors)

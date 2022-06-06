@@ -45,10 +45,10 @@
         </div>
 
         <div class="col-4">
-            <div onclick="return confirm('Add ordinary payment')">
+            <div data-bs-toggle="modal" data-bs-target="#regularPayments">
                 <div class="action-card">
                     <div class="action-card-img" style="background-image: url({% static 'images/money-summary.svg' %});">
-                        <h4>Ordinary Payments</h4>
+                        <h4>Regular Payments</h4>
                     </div>
                 </div>
                 <div class="action-card-text">
@@ -79,44 +79,88 @@
 
 <!-- Modal Amortization Schedule -->
 <div class="modal fade" id="amortizationSchedule" tabindex="-1" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title">Amortization Schedule</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <table class="table table-hover">
-            <thead>
-                <tr class="table-info">
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Payment</th>
-                    <th scope="col">Interest</th>
-                    <th scope="col">Principal</th>
-                    <th scope="col">Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for date in loanSchedule %}
-                    <tr>
-                        <th scope="row">{{date.item}}</th>
-                        <td>{{date.date}}</td>
-                        <td>$ {{date.payment}} USD</td>
-                        <td>$ {{date.interest}} USD</td>
-                        <td>$ {{date.principal}} USD</td>
-                        <td>$ {{date.balance}} USD</td>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Amortization Schedule</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Interest</th>
+                        <th scope="col">Principal</th>
+                        <th scope="col">Balance</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-    </div>
+                </thead>
+                <tbody>
+                    {% for date in loanSchedule %}
+                        <tr>
+                            <th scope="row">{{date.item}}</th>
+                            <td>{{date.date}}</td>
+                            <td>$ {{date.payment}} USD</td>
+                            <td>$ {{date.interest}} USD</td>
+                            <td>$ {{date.principal}} USD</td>
+                            <td>$ {{date.balance}} USD</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+        </div>
     </div>
 </div>
+
+<!-- Modal Regular Payments -->
+<div class="modal fade" id="regularPayments" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Regular Payments</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col"></th>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for date in loanSchedule %}
+                        <tr>
+                            <td><input type="checkbox" name="pay" id="pay" value="{{date.payment}}"></td>
+                            <th scope="row">{{date.item}}</th>
+                            <td>{{date.date}}</td>
+                            <td>$ {{date.payment}} USD</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4">
+                            <span id="totalPayment"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -229,6 +273,22 @@
             name: 'Balance',
             data: [{{ loanChart.balance | safe}}]
         }]
+    });
+
+    $('input:checkbox').change(function ()
+    {
+
+        var total = 0;
+        var totalStr = '';
+        $('input:checkbox:checked').each(function(){
+        total += isNaN(parseFloat($(this).val())) ? 0 : parseFloat($(this).val());
+        totalStr = "Total Payment: <b>$" + String(total.toFixed(2)) + " USD</b>";
+        });   
+    
+        //$("#total").val(total.toFixed(2));
+
+        $("#totalPayment").html(totalStr);
+
     });
 
   </script>

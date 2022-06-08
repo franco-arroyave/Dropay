@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
+from django.contrib.auth.views import LoginView, LogoutView, logout_then_login, PasswordChangeView
 from . import views
 from Credit import views as viewsCredit
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('signup', views.signUp, name='signup'),
     path('home', viewsCredit.loans, name='index'),
     path('updateUser', views.updateUser, name='updateUser'),
+    path('updatePassword', PasswordChangeView.as_view(template_name='pages/updatePassword.html'), name='updatePassword'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

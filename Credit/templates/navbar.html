@@ -13,16 +13,23 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- <ul class="navbar-nav w-100 justify-content-center">
+    <ul class="navbar-nav w-100 justify-content-center">
         <li class="nav-item">
             <a href="{% url 'loans' %}">Loans</a>
         </li>
-    </ul> -->
+    </ul>
     <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto w-100 justify-content-end">
             <div class="userMenu">
-                <a class="userMenu--user" href="{% url 'updateUser'%}"><img src="{% static '/images/user.svg'%}" alt="User"> {{user.username }}</a>
-                <a href="{% url 'logout' %}"><img src="{% static '/images/box-arrow-right.svg'%}" alt="Log out" style="margin-left: 30px;"></a>
+                <div class="btn-group">
+                    <a class="dropdown-toggle userMenu--user"  data-bs-toggle="dropdown" aria-expanded="false">{{user.username }}</a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="{% url 'updateUser'%}"><img src="{% static '/images/user.svg'%}" alt="User">Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'updatePassword'%}"><img src="{% static '/images/user.svg'%}" alt="User">Update Password</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{% url 'logout' %}"><img src="{% static '/images/box-arrow-right.svg'%}" alt="Log out">Exit</a></li>
+                    </ul>
+                  </div>
             </div>
         </ul>
     </div>

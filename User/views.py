@@ -40,10 +40,8 @@ def updateUser(request):
     if request.method == "POST":
         userForm = updateUserForm(request.POST, instance= request.user)
         if userForm.is_valid():
-            user = userForm.save()
-            user.set_password('password1')
             userForm.save()
-            messages.success(request, f'User {user.username} updated successfully')
+            messages.success(request, f'User updated successfully')
             return render(request, 'pages/index.html')
         else:
             messages.add_message(request, messages.ERROR, userForm.errors)

@@ -1,15 +1,16 @@
+from hashlib import algorithms_available
+import django
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserRegisterForm, ProfileRegisterForm, updateUserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 # Create your views here.
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, "pages/index.html")
+    return render(request, 'pages/index.html')
 
 def signUp(request):
     if request.method == "POST":
@@ -42,8 +43,7 @@ def updateUser(request):
             user = userForm.save()
             user.set_password('password1')
             userForm.save()
-            username = userForm.cleaned_data['username']
-            messages.success(request, f'User {username} updated successfully')
+            messages.success(request, f'User {user.username} updated successfully')
             return render(request, 'pages/index.html')
         else:
             messages.add_message(request, messages.ERROR, userForm.errors)
@@ -51,3 +51,5 @@ def updateUser(request):
         userForm = updateUserForm(instance=request.user)
     context = {'userForm': userForm}
     return render(request, 'pages/update.html', context)
+
+

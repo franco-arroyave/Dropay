@@ -85,6 +85,7 @@ DATABASES = {
         'NAME': 'dropay',
         'USER': 'root',
         'PASSWORD': '',
+        #'HOST': '192.168.1.68',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

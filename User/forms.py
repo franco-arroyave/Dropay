@@ -80,7 +80,7 @@ class updateUserForm(forms.ModelForm):
         help_texts = {k:"" for k in fields}
 
     def clean(self):
-        super(UserRegisterForm, self).clean()
+        super(updateUserForm, self).clean()
 
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             

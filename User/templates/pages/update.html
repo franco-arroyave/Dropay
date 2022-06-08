@@ -1,64 +1,61 @@
+
 {% extends "base.html" %}
 
-{% block titulo %} Home {% endblock %}
+{% block titulo %} Update Profile {% endblock %}
 
 {% block contenido %}  
 
 {%include '../navbar.html'%}
 
-{%load static%}
-
-<div class="container">
-    <div class="signUp_Form">
-        <form class="form" method="post">
-                    
-            {% csrf_token %}
-
-            <h2>Profile</h2>
-
-            <fieldset class="input-field">
-                {{ userForm.first_name }}
-                <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
-            </fieldset>
-
-            <fieldset class="input-field">
-                {{ userForm.last_name }}
-                <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
-            </fieldset>
-
-            <fieldset class="input-field">
-                {{ userForm.email }}
-                <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
-            </fieldset>
-                    
-            <table>
-                <tr>
-                    <td>
-                        <fieldset class="input-field">
-                            {{ userForm.password1 }}
-                            <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
-                        </fieldset>
-                    </td>
-                    <td>
-                        <fieldset class="input-field">
-                            {{ userForm.password2 }}
-                            <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
-                        </fieldset>
-                    </td>
-                </tr>
-            </table>
-
-            <button type="submit" id="submit">Update</button>
-        </form>
-    </div>
-</div>
-
 <style>
-    .icon-action {
-        width: 25px; 
-        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(270deg) brightness(105%) contrast(103%);
+    img.icon--blue {
+        filter: invert(71%) sepia(66%) saturate(599%) hue-rotate(158deg) brightness(92%) contrast(100%);
     }
 </style>
+{%load static%}
+<script src="{% static 'js/credit.js' %}"></script>
+
+<div class="container form--addLoan">
+    <div class="row">
+        <h3>Profile</h3>
+    </div>
+    <form name="formAddLoan" class="form-addLoan--content" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                <fieldset class="input-field">
+                    {{ userForm.first_name }}
+                    <label for="user_firstName"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> First Name</label>
+                </fieldset>
+            
+                <fieldset class="input-field">
+                    {{ userForm.last_name }}
+                    <label for="user_last_Name"><img src="{% static '/images/user.png'%}" height="16px" alt="user"> Last Name</label>
+                </fieldset>
+            
+                <fieldset class="input-field">
+                    {{ userForm.email }}
+                    <label for="user_email"><img src="{% static '/images/email.png'%}" height="16px" alt="email"> Email</label>
+                </fieldset>
+            </div>
+            <div class="col-6">
+                <fieldset class="input-field">
+                    {{ userForm.password1 }}
+                    <label for="user_password1"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
+                </fieldset>
+                <fieldset class="input-field">
+                    {{ userForm.password2 }}
+                    <label for="user_password2"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password Confirmation</label>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <button type="submit" id="submit">Update</button>
+            </div>
+        </div>
+      </form>
+</div>
+
 {% endblock %}
-
-

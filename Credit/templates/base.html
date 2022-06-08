@@ -56,17 +56,29 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
-    <!---<div class="row">
-      <div class="container">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-          <p>{{ message }}</p>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% if form.errors %}
+    <div id="miModal" class="modals modal-dialog-centered">
+      <div class="modal-content modal-contenido">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Something is wrong</h5>
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="document.getElementById('miModal').remove();">-->
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        {% endfor %}
+        <div class="modal-body">
+          {% for error in form.non_field_errors %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+              {{ error }}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="document.getElementById('miModal').remove();">Close</button>
+        </div>
       </div>
-    </div>--->
+    </div>
     {% endif %}
 
     <!-- Bootstrap JavaScript Libraries -->

@@ -33,6 +33,6 @@ class Paymant(models.Model):
     LoanID = models.ForeignKey(Loan, on_delete=models.CASCADE)
     Date = models.DateTimeField(null=True, verbose_name='Fecha de Pago')
     Payment = models.FloatField(null=True, verbose_name='Valor Pago')
-    Pricipal = models.FloatField(null=True, verbose_name='Capital')
+    Principal = models.FloatField(null=True, verbose_name='Capital')
     Interest = models.FloatField(null=True, verbose_name='Interes')
     Balance = models.FloatField(null=True, verbose_name='Balance')

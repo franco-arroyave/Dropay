@@ -30,7 +30,7 @@ class LoanInfo :
         if self.termCalendar == "Years":
             months = self.Term * 12
         elif self.termCalendar == "Days":
-            months = self.Term / 30
+            months = self.Term / 30.4167
         else :
             months = self.Term
         return months
@@ -39,12 +39,12 @@ class LoanInfo :
         self.gralPeriod = 52
         weeks = 0
         if self.termCalendar == "Years":
-            weeks = self.Term * 52
+            weeks = self.Term * 52.1429
         elif self.termCalendar == "Days":
             weeks = self.Term / 7
         else :
-            weeks = self.Term * 4
-        return weeks
+            weeks = self.Term * 4.34524
+        return int(weeks)
     
     def daysTerm(self) :
         self.gralPeriod = 365
@@ -54,8 +54,8 @@ class LoanInfo :
         elif self.termCalendar == "Days":
             days = self.Term
         else :
-            days = self.Term * 30
-        return days
+            days = self.Term * 30.4167
+        return int(days)
 
     def convertInterestRate(self, Period):
         if self.Compound == "EM" :
@@ -188,3 +188,17 @@ class LoanInfo :
                                 "principal": str("%.2f" % principal), 
                                 "balance" : str("%.2f" % balance)})
         return scheduleInfo
+    
+    def addRegularPayments(self, loanPK, nRegularPayments) :
+        regularPayments = list()
+        loanSchedule = LoanInfo.loanSchedule(self)
+        for i in range(nRegularPayments) :
+            regularPayments.append({
+                "Date" : datetime.datetime.strptime(loanSchedule[i]['date'], '%d/%m/%Y'),
+                "Payment" : loanSchedule[i]['payment'],
+                "Interest" : loanSchedule[i]['interest'],
+                "Principal" : loanSchedule[i]['principal'],
+                "Balance" : loanSchedule[i]['balance'],
+                "LoanID" : loanPK
+            })
+        return regularPayments

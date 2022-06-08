@@ -219,9 +219,9 @@
                 DisbursementDate : '{{system.DisbursementDate}}',
                 loanPeriod : '{{system.loanPeriod}}',
                 monthlyPayment : '{{loanInfo.monthlyPayment}}',
-                termCalendar : '{{system.termCalendar}}',
-                Compound : '{{system.Compound}}',
-                Payments : payment
+                termCalendar : 'Months',
+                Compound : 'EA',
+                Payments : payment.length
             },
             function(data, status) {
                 if(status === "success") {

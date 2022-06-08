@@ -65,6 +65,6 @@ class addRegularPayment(forms.ModelForm) :
 
     class Meta :
         model = Paymant
-        fields = ('Date', 'Payment', 'Pricipal', 'Interest', 'Balance', 'LoanID')
+        fields = ('Date', 'Payment', 'Principal', 'Interest', 'Balance', 'LoanID')
 
 

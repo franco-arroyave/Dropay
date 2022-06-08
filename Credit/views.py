@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Loan
 from django.contrib import messages
-from .forms import addLoanForm
+from .forms import addLoanForm, addRegularPayment
 from .loanInfo import LoanInfo
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -51,7 +51,7 @@ def saveLoanInfo(request):
 
         system = request.POST
         form = addLoanForm(system)
-
+        payments = system.get('Payments[]')
         if form.is_valid() :
             saveLoan = form.save(commit=False)
             saveLoan.UserID_id = request.user.id

@@ -128,7 +128,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table class="table table-hover">
+            <table class="table table-hover" id="tblRegularPayment">
                 <thead>
                     <tr class="table-info">
                         <th scope="col"></th>
@@ -138,12 +138,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for date in loanSchedule %}
+                    {% for payment in loanSchedule %}
                         <tr>
-                            <td><input type="checkbox" name="pay" id="pay" value="{{date.payment}}"></td>
-                            <th scope="row">{{date.item}}</th>
-                            <td>{{date.date}}</td>
-                            <td>$ {{date.payment}} USD</td>
+                            <td><input type="checkbox" name="payments[]" class="paymentCheck" value="{{payment.item}}"></td>
+                            <th scope="row">{{payment.item}}</th>
+                            <td>{{payment.date}}</td>
+                            <td class="payment">$ {{payment.payment}} USD</td>
                         </tr>
                     {% endfor %}
                     <tr>
@@ -202,6 +202,11 @@
 
     function saveLoanInfo(){
         const Url = 'saveLoan';
+        var payment = [];
+        //Insertar toda la información de la cuota aquí
+        $('#tblRegularPayment input:checked').each(function() {
+            payment.push($(this).attr('value'));
+        });
         $.post(
             Url,
             {
@@ -215,7 +220,8 @@
                 loanPeriod : '{{system.loanPeriod}}',
                 monthlyPayment : '{{loanInfo.monthlyPayment}}',
                 termCalendar : '{{system.termCalendar}}',
-                Compound : '{{system.Compound}}'
+                Compound : '{{system.Compound}}',
+                Payments : payment
             },
             function(data, status) {
                 if(status === "success") {
@@ -277,18 +283,39 @@
 
     $('input:checkbox').change(function ()
     {
-
         var total = 0;
         var totalStr = '';
         $('input:checkbox:checked').each(function(){
-        total += isNaN(parseFloat($(this).val())) ? 0 : parseFloat($(this).val());
-        totalStr = "Total Payment: <b>$" + String(total.toFixed(2)) + " USD</b>";
-        });   
-    
-        //$("#total").val(total.toFixed(2));
+            let pay = $(this).parents('tr').find("td").eq(2).text();
+            var payS = pay.split(" ");
+            total += isNaN(parseFloat(payS[1])) ? 0 : parseFloat(payS[1]);
+            totalStr = "Total Payment: <b>$" + String(total.toFixed(2)) + " USD</b>";
+        });
 
         $("#totalPayment").html(totalStr);
+    });
 
+    window.addEventListener('load', function () {
+        enableRegularPayments();
+    });
+
+    function enableRegularPayments() {
+        let ckPayments = document.getElementsByClassName('paymentCheck').length;
+        for (var i = 0; i < ckPayments; i++) {
+            document.getElementsByClassName('paymentCheck')[i].disabled= true;
+        }
+        document.getElementsByClassName('paymentCheck')[0].disabled= false;
+    }
+ 
+    $('.paymentCheck').change(function(){
+        var i = $('.paymentCheck').index(this)
+        if ($(this).is(':checked')) {
+            $('.paymentCheck')[ i + 1].disabled= false;
+            $('.paymentCheck')[i - 1].disabled= true;
+        } else {
+            $('.paymentCheck')[i + 1].disabled= true;
+            $('.paymentCheck')[i - 1].disabled= false;
+        }
     });
 
   </script>

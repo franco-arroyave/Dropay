@@ -1,8 +1,9 @@
+from dataclasses import fields
 from email.policy import default
 from random import choices
 from tkinter import Widget
 from django import forms
-from .models import Loan, Periodicity
+from .models import Loan, Paymant, Periodicity
 
 Compound_Choices = (
     ('', 'Select Compound'),
@@ -55,7 +56,15 @@ class addLoanForm(forms.ModelForm):
         if loanTerm <= 0 :
             self.add_error('Term', 'The Loan Term must be higher than 0.')
         
-        if interestRate < 0 or interestRate > 100 :
-            self.add_error('InterestRate', 'The Interest Rate must be between 0 and 100')
+        if interestRate < 0 :
+            self.add_error('InterestRate', 'The Interest Rate must be higher than 0.')
         
         return self.cleaned_data
+
+class addRegularPayment(forms.ModelForm) :
+
+    class Meta :
+        model = Paymant
+        fields = ('Date', 'Payment', 'Pricipal', 'Interest', 'Balance', 'LoanID')
+
+

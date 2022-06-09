@@ -46,7 +46,10 @@
                         <table width="100%">
                             <tr>
                                 <td align="center">
-                                    <a href="{% url 'loanPayment' %}"><img src="{% static 'images/credit-card.svg'%}" class="icon-action" alt="Pay Loan" ></a>
+                                    <form action="{% url 'loanPayment' loan.LoanID %}" method="post" name="loanPayment">
+                                        {% csrf_token %}
+                                        <input type="image" src="{% static 'images/credit-card.svg'%}" alt="Submit" class="icon-action"/>
+                                    </form>
                                 </td>
                             </tr>
                             <tr>

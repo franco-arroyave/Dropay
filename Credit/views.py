@@ -20,10 +20,6 @@ def newLoan(request):
     return render(request, 'pages/new.html', {'form': form})
 
 @login_required(login_url='login')
-def loanPayment(request):
-    return render(request, 'pages/payment.html')
-
-@login_required(login_url='login')
 def addLoanSummary(request):
 
     if request.method == "POST":
@@ -91,3 +87,14 @@ def deleteLoan(request, pk):
         return redirect('loans')
         
     return render(request, 'pages/index.html', {'loan' : loan})
+
+@login_required(login_url='login')
+def loanPayment(request, pk):
+    loan = get_object_or_404(Loan, LoanID = pk)
+
+    if request.method == 'POST':
+        loanInfo = Loan.objects.filter(LoanID=pk, UserID_id=request.user.id)[0]
+        return render(request, 'pages/payment.html', {'loan': loanInfo})
+    else :
+        messages.add_message(request, messages.ERROR, loanInfo.errors)
+        return render(request, 'pages/index.html')

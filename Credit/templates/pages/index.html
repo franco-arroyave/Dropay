@@ -16,7 +16,11 @@
 
             <a href="{%url 'newLoan'%}"><img src="{% static 'images/circle-plus.png'%}" class="add-button" alt="Add" width="80px"></a>
 
-            <div class="text-container">
+            <div id="loanList" class="text-container">
+                <fieldset class="input-field">
+                    <input type="text" id="loanFilter" onkeyup="filterLoan()" placeholder="Search for names.." title="Type in a name">
+                </fieldset>
+                
                 {% for loan in loans %}
                 <div class="row" style="margin: 0px 0px 20px 0px;">
                     <div class="col-3" style="background-color: #41c9eb; display: flex; align-items: center; border-radius: 15px 0px 0px 15px;">
@@ -67,7 +71,38 @@
         width: 25px; 
         filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(270deg) brightness(105%) contrast(103%);
     }
+
+    #loanFilter {
+        background-image: url({% static 'images/search.svg'%});
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        margin-bottom: 12px;
+    }
 </style>
+
+
     {% endif %}
+
+    <script>
+        function filterLoan() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("loanFilter");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("loanList");
+            row = div.getElementsByClassName("row");
+            for (i = 0; i < row.length; i++) {
+                a = row[i].getElementsByTagName("p")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    row[i].style.display = "";
+                } else {
+                    row[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 {% endblock %}
 

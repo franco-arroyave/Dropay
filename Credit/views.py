@@ -1,16 +1,17 @@
 from audioop import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Loan
+from .models import Loan, Paymant
 from django.contrib import messages
 from .forms import addLoanForm, addRegularPayment
 from .loanInfo import LoanInfo
 from django.contrib.auth.decorators import login_required
+from django.db.models import Subquery, OuterRef
 # Create your views here.
 
 @login_required(login_url='login')
 def loans(request):
-    loansList = Loan.objects.filter(UserID_id=request.user.id)
+    loansList = Loan.objects.filter(UserID_id=request.user.id).annotate(balance = Subquery(Paymant.objects.filter(LoanID_id=OuterRef('pk')).order_by('-Date').values('Balance')[:1])).order_by('-StartDate')
     return render(request, 'pages/index.html', {'loans': loansList})
 
 @login_required(login_url='login')

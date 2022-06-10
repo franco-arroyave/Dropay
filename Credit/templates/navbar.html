@@ -7,16 +7,28 @@
         background-attachment: fixed;
         background-position: bottom left;
     }
+
+    .a-nav-item {
+        text-decoration: none;
+        color: #ffffff;
+        padding-top: 18px;
+        background-color: #2124b5;
+    }
+
+    .a-nav-item:hover {
+        background-color: #41C9EB;
+        color: #01048a;
+    }
+
 </style>
 <nav class="navbar navbar-light navbar-expand-md">
     <a href="{% url 'index' %}" class="nav--logo navbar-brand d-flex"><img src="{% static '/images/logo.svg'%}" alt="Logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <ul class="navbar-nav w-100 justify-content-center">
-        <li class="nav-item">
-            <a href="{% url 'loans' %}">Loans</a>
-        </li>
+    <ul class="navbar-nav w-100 justify-content-center" style="height: 64px;">
+        <a href="{% url 'loans' %}" class="a-nav-item">
+            <li class="nav-item" style="width: 80px; margin: auto; align-content: center;">
+                <center>Loans</center>
+            </li>
+        </a>
     </ul>
     <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto w-100 justify-content-end">

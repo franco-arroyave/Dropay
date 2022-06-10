@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %} Statistics {% endblock %}
+
+{% block contenido %}
+
+{%include '../navbar.html'%}
+
+{%load static%}
+
+<div class="container form--addLoan">
+    <div class="row">
+        <div class="col-3">
+            <h3>Statistics</h3>
+            <br>
+            <p>
+                <b>Number of Users:</b> {{usersN}}
+            </p>
+            <p>
+                <b>Number of Loans:</b> {{loansN}}
+            </p>
+        </div>
+        <div class="col-9">
+            <div id="graphic"></div>
+        </div>
+    </div>
+    <!-- <div class="row" style="margin-top: 50px;">
+        <a href="{% url 'loans' %}"><button class="button--regular" type="submit" onclick="saveLoanInfo()">Save</button></a>
+    </div> -->
+    
+</div>
+
+{% endblock %}

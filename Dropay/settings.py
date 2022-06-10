@@ -87,6 +87,7 @@ DATABASES = {
         'PASSWORD': '',
         #'HOST': '192.168.1.68',
         'HOST': '127.0.0.1',
+        #'HOST': 'cooprudea.com',
         'PORT': '3306'
     }
 }

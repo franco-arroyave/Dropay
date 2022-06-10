@@ -6,6 +6,7 @@ body {
     margin: 0;
 }
 
+
 .logIn_logo {
     margin-top: 30%;
     margin-left: 20%;
@@ -64,7 +65,7 @@ button.button--regular{
     background-color: #41C9EB;
     color: white;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     box-shadow: 0px 3px 10px #00000014;
     border-radius: 5px;
     border: none;

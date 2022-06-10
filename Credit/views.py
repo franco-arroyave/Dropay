@@ -7,12 +7,15 @@ from .forms import addLoanForm, addRegularPayment
 from .loanInfo import LoanInfo
 from .payments import PaymentsInfo
 from django.contrib.auth.decorators import login_required
-from django.db.models import Subquery, OuterRef
+from django.db.models import Subquery, OuterRef, Sum
 # Create your views here.
 
 @login_required(login_url='login')
 def loans(request):
     loansList = Loan.objects.filter(UserID_id=request.user.id).annotate(balance = Subquery(Paymant.objects.filter(LoanID_id=OuterRef('pk')).order_by('-Date').values('Balance')[:1])).order_by('-StartDate')
+    for loan in loansList:
+        if loan.balance == None:
+            loan.balance = loan.Ammount
     return render(request, 'pages/index.html', {'loans': loansList})
 
 @login_required(login_url='login')
@@ -31,8 +34,10 @@ def addLoanSummary(request):
             # saveLoan.save()
 
             context = {}
+            request.POST._mutable = True
             system = request.POST
             context['system'] = system
+            context['system']['Name'] = system.get('Name').capitalize()
             context['loanInfo'] = LoanInfo(system).loanSummary()
             context['loanChart'] = LoanInfo(system).loanChart()
             context['loanSchedule'] = LoanInfo(system).loanSchedule()
@@ -95,9 +100,59 @@ def loanPayment(request, pk):
 
     if request.method == 'POST':
         loanInfo = Loan.objects.filter(LoanID=pk, UserID_id=request.user.id).annotate(balance = Subquery(Paymant.objects.filter(LoanID_id=OuterRef('pk')).order_by('-Date').values('Balance')[:1]))[0]
+
+        if loanInfo.balance == None:
+            loanInfo.balance = loanInfo.Ammount
+
         payments = Paymant.objects.filter(LoanID_id=pk).order_by('-Date')
-        paymentsMade = PaymentsInfo(payments).paymentSummary(vars(loanInfo))
-        return render(request, 'pages/payment.html', {'loan': loanInfo, 'payments': paymentsMade})
+        paymentSummary = PaymentsInfo(payments).paymentSummary()
+        paymentsMade = PaymentsInfo(payments).paymentsMade(vars(loanInfo))
+        loanSchedule = LoanInfo(PaymentsInfo(payments).loanContext(vars(loanInfo))).loanSchedule()
+        loanChart = LoanInfo(PaymentsInfo(payments).loanContext(vars(loanInfo))).loanChart()
+        return render(request, 'pages/payment.html', {'loan': loanInfo, 'payments': paymentsMade, 'loanSchedule': loanSchedule, 'loanChart': loanChart, 'paymentSummary': paymentSummary})
     else :
         messages.add_message(request, messages.ERROR, loanInfo.errors)
         return render(request, 'pages/index.html')
+
+
+def saveLoanPayment(request):
+    if request.method == "POST":
+        system = request.POST
+        loanID = system.get('loanID')
+        numPayments = int(system.get('payments'))
+
+        payments = Paymant.objects.filter(LoanID_id=loanID).order_by('-Date')
+        lstPayments = list(payments)
+        loanInfo = Loan.objects.filter(LoanID=loanID, UserID_id=request.user.id)[0]
+        loanContext = PaymentsInfo(payments).loanContext(vars(loanInfo))
+        lstRegularPayments = LoanInfo(loanContext).addRegularPayments(loanID, numPayments)
+
+        changes = list()
+        numChanges = 0
+        if len(lstRegularPayments) > len(payments):
+            numChanges = len(lstRegularPayments) - len(payments)
+            changes = lstRegularPayments[len(payments):]
+            print('Nuevos pagos')
+
+            for pay in changes:
+                formPayments = addRegularPayment(pay)
+                if formPayments.is_valid():
+                        savePayment = formPayments.save(commit=False)
+                        savePayment.save()
+                else :
+                    messages.add_message(request, messages.ERROR, formPayments.errors)
+            
+            messages.add_message(request, messages.SUCCESS, 'Payment added successfully!')
+
+        elif len(lstRegularPayments) < len(payments) :
+            numChanges = len(payments) - len(lstRegularPayments)
+            changes = lstPayments[:numChanges]
+
+            for pay in changes:
+                payment = get_object_or_404(Paymant, Date=pay.Date, LoanID_id=loanID)
+                payment.delete()
+            
+            messages.add_message(request, messages.SUCCESS, 'Payment deleted successfully!')
+
+    return loanPayment(request, loanID)
+

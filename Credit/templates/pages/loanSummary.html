@@ -14,16 +14,16 @@
             <h3>{{system.Name}}</h3>
             <br>
             <p>
-                <b>Ammount:</b> ${{system.Ammount}} USD
+                <b class="bold-500">Ammount:</b> ${{system.Ammount}} USD
             </p>
             <p>
-                <b>Loan Term:</b> {{loanInfo.monthsTerm}} months.
+                <b class="bold-500">Loan Term:</b> {{loanInfo.monthsTerm}} months.
             </p>
             <p>
-                <b>Interest Rate:</b> {{loanInfo.interestEA}}% EA
+                <b class="bold-500">Interest Rate:</b> {{loanInfo.interestEA}}% EA
             </p>
             <p>
-                <b>Payment:</b> ${{loanInfo.monthlyPayment}} USD
+                <b class="bold-500">Payment:</b> ${{loanInfo.monthlyPayment}} USD
             </p>
         </div>
         <div class="col-9">
@@ -90,7 +90,7 @@
         <div class="modal-body">
             <table class="table table-hover">
                 <thead>
-                    <tr class="table-info">
+                    <tr style="background-color: #01048a; color: white">
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
                         <th scope="col">Payment</th>
@@ -132,7 +132,7 @@
         <div class="modal-body">
             <table class="table table-hover" id="tblRegularPayment">
                 <thead>
-                    <tr class="table-info">
+                    <tr style="background-color: #01048a; color: white">
                         <th scope="col"></th>
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
@@ -164,6 +164,8 @@
         </div>
     </div>
 </div>
+
+{%include '../footer.html'%}
 
 <style>
     div.action-card {

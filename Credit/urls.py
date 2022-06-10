@@ -5,9 +5,10 @@ from . import views
 urlpatterns = [
     path('loans', views.loans, name='loans'),
     path('loans/newLoan', views.newLoan, name='newLoan'),
-    path(r'^addPayment/(?P<pk>[0-9]+)/$', views.loanPayment, name='loanPayment'),
+    path(r'^loans/details/(?P<pk>[0-9]+)/$', views.loanPayment, name='loanPayment'),
     path('loans/addLoan', views.addLoanSummary, name='loanSummary'),
     path('loans/saveLoan', views.saveLoanInfo, name='saveLoanInfo'),
+    path('loans/savePayment', views.saveLoanPayment, name='savePayment'),
     path(r'^delete/(?P<pk>[0-9]+)/$', views.deleteLoan, name='loan_delete')
 ]
 

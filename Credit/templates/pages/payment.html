@@ -18,68 +18,80 @@
             <h2>{{loan.Name}}</h2>
             <br>
             <p>
-                <b>Ammount:</b> ${{loan.Ammount}} USD
+                <b class="bold-500">Ammount:</b> ${{loan.Ammount}} USD
             </p>
             <p>
-                <b>Loan Term:</b> {{loan.Term}} months.
+                <b class="bold-500">Loan Term:</b> {{loan.Term}} months.
             </p>
             <p>
-                <b>Interest Rate:</b> {{loan.InterestRate}}% EA
+                <b class="bold-500">Interest Rate:</b> {{loan.InterestRate}}% EA
             </p>
             <p>
-                <b>Payment:</b> ${{loan.monthlyPayment}} USD
+                <b class="bold-500">Payment:</b> ${{loan.monthlyPayment}} USD
             </p>
         </div>
         <div class="col-9">
-            <div id="graphic"> graphic</div>
-            <button class="button--regular" data-bs-toggle="modal" data-bs-target="#amortizationSchedule">View Amortization Schedule</button>
+            <div id="graphic"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-3">
+            <button class="button--regular" data-bs-toggle="modal" data-bs-target="#amortizationSchedule">Amortization Schedule</button>
+        </div>
+        
+    </div>
 
-    <div class="row" style="margin-top: 30px;">
+    <div class="row" style="margin-top: 50px;">
         <h4>Payment Details</h4>
 
         <div class="card-group">
-            <div class="card">
+            <div class="card border-0">
               <div class="card-body">
                 <p>
-                    <b>Principal Paid:</b>
+                    <span class="dot" style="background-color: #0d6efd;"></span><b class="bold-500">Principal Paid:</b> $ {{paymentSummary.principalPaid}} USD
                 </p>
                 <p>
-                    <b>Interest Paid:</b>
+                    <span class="dot" style="background-color: #0dcaf0;"></span><b class="bold-500">Interest Paid:</b> $ {{paymentSummary.interestPaid}} USD
                 </p>
-                <div class="row">
-                    <!-- <div class="box">
-                        <div class="chart" data-percent="30" >90%</div>
-                        <p class="pieTitle">Principal Interes</p>
-                    </div> -->
+              </div>
+            </div>
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5>Total Paid</h5>
+                    $ {{paymentSummary.totalPaid}} USD
                 </div>
-              </div>
             </div>
-            <div class="card">
-              <div class="card-body">
-                <h5>Total Paid</h5>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5>Balance</h5>
-                <p>$ {{loan.balance}} USD</p>
-                <input type="checkbox" name="" id="" checked>
-              </div>
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5>Balance</h5>
+                    <p>$ {{loan.balance}} USD</p>
+                </div>
             </div>
           </div>
+    </div>
 
-          <div class="col-3">
+    <div class="row">
+        <div class="col-8">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{paymentSummary.percentagePrincipal}}%" aria-valuenow="{{paymentSummary.percentagePrincipal}}" aria-valuemin="0" aria-valuemax="100">
+                    {{paymentSummary.percentagePrincipal}}%
+                </div>
+                <div class="progress-bar bg-info" role="progressbar" style="width: {{paymentSummary.percentageInterest}}%" aria-valuenow="{{paymentSummary.percentageInterest}}" aria-valuemin="0" aria-valuemax="100">
+                    {{paymentSummary.percentageInterest}}%
+                </div>
+            </div>
+          </div>
+          
+    </div>
+
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-8"></div>
+        <div class="col-4">
             <button class="button--regular" data-bs-toggle="modal" data-bs-target="#regularPayments">Add Payment</button>
           </div>
     </div>
 
-    
-    <!-- <div class="row" style="margin-top: 50px;">
-        <a href="{% url 'loans' %}"><button class="button--regular" type="submit" onclick="saveLoanInfo()">Save</button></a>
-    </div> -->
-    
 </div>
 
 <!-- Modal Amortization Schedule -->
@@ -93,7 +105,7 @@
         <div class="modal-body">
             <table class="table table-hover">
                 <thead>
-                    <tr class="table-info">
+                    <tr style="background-color: #01048a; color: white">
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
                         <th scope="col">Payment</th>
@@ -103,7 +115,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- {% for date in loanSchedule %}
+                    {% for date in loanSchedule %}
                         <tr>
                             <th scope="row">{{date.item}}</th>
                             <td>{{date.date}}</td>
@@ -112,7 +124,7 @@
                             <td>$ {{date.principal}} USD</td>
                             <td>$ {{date.balance}} USD</td>
                         </tr>
-                    {% endfor %} -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -134,53 +146,49 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table class="table table-hover" id="tblRegularPayment">
-                <thead>
-                    <tr class="table-info">
-                        <th scope="col"></th>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Payment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for payment in payments %}
-                        <tr>
-                            <td><input type="checkbox" name="payments[]" class="paymentCheck" value="{{payment.item}}" {{payment.check}}></td>
-                            <th scope="row">{{payment.item}}</th>
-                            <td>{{payment.date}}</td>
-                            <td class="payment">$ {{payment.payment}} USD</td>
+            <form action="/loans/savePayment" method="post">
+                <table class="table table-hover" id="tblRegularPayment">
+                    {% csrf_token %}
+                    <input type="text" hidden value="{{loan.LoanID}}" name="loanID">
+                    <thead>
+                        <tr style="background-color: #01048a; color: white">
+                            <th scope="col"></th>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Payment</th>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="4">
-                            <span id="totalPayment"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                            <tr>
+                                <td><input type="checkbox" name="payments" class="paymentCheck" value="{{payment.item}}" {{payment.check}}></td>
+                                <th scope="row">{{payment.item}}</th>
+                                <td>{{payment.date}}</td>
+                                <td class="payment">$ {{payment.payment}} USD</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4">
+                                <span id="totalPayment"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            <div style="width: 200px;"><button type="submit" class="button--regular">Save changes</button></div>
+            
         </div>
+            </form>
         </div>
     </div>
 </div>
 
+{%include '../footer.html'%}
+
 <script type="text/javascript">
-    $(function() {
-        $('.chart').easyPieChart({
-            size: 160,
-            barColor: "#41C9EB",
-            scaleLength: 0,
-            lineWidth: 15,
-            trackColor: "#01048a",
-            lineCap: "circle",
-            animate: 2000,
-        });
-    });
 
     $('input:checkbox').change(function ()
     {
@@ -227,35 +235,63 @@
         }
     });
 
+    Highcharts.chart('graphic', {
+        chart: {
+            type: 'areaspline',
+            backgroundColor: 'rgba(0,0,0,0)'
+        },
+        title: {
+            text: 'Loan Performance'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [ {{ loanChart.categories | safe}}],
+            plotBands: [{
+            from: 4.5,
+            to: 6.5,
+            color: 'rgba(68, 170, 213, .2)'
+        }]
+        },
+        yAxis: {
+            title: {
+                text: 'Payment'
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' USD'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'Comulative Interest',
+            data: [{{ loanChart.interest | safe}}]
+        }, {
+            name: 'Principal Paid',
+            data: [{{ loanChart.principal | safe}}]
+        }, {
+            name: 'Balance',
+            data: [{{ loanChart.balance | safe}}]
+        }]
+    });
 </script>
 
 
   <style>
-    .container .box {
-        width: 190px;
-    }
-
-    .container .box p.pieTitle {
-        display: block;
-        text-align: center;
-    }
-
-    .container .box .chart {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        font-size: 30px;
-        line-height: 160px;
-        height: 160px;
-    }
-
-    .container .box canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        width: 100%;
+    .dot {
+        height: 13px;
+        width: 13px;
+        margin-right: 10px;
+        border-radius: 50%;
+        display: inline-block;
     }
 </style>
 

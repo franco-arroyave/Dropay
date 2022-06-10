@@ -94,9 +94,29 @@ class LoanInfo :
     def loanChart(self):
         chartInfo = dict()
         chartInfo['categories'] = LoanInfo.chartCategories(self)
-        chartInfo['interest'] = LoanInfo.chartInterest(self)
-        chartInfo['principal'] = LoanInfo.chartPrincipal(self)
-        chartInfo['balance'] = LoanInfo.chartBalance(self)
+
+        mpt = LoanInfo.monthlyPayment(self)
+        balance = self.Ammount
+        interest = 0
+        interest2 = 0
+        principal = 0
+        principal2 = 0
+        strInterest = ''
+        strPrincipal = ''
+        strBalance = ''
+        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
+        for i in range(LoanInfo.convertPeriod(self)) :
+            interest = interestRate*balance + LoanInfo.disbursementInterest(self)
+            interest2 += interest
+            principal = mpt - interest
+            principal2 += principal
+            balance = balance - principal
+            strInterest += str("%.2f" % interest2) + ', '
+            strPrincipal += str("%.2f" % principal2) + ', '
+            strBalance += str("%.2f" % balance) + ', '
+        chartInfo['interest'] = strInterest
+        chartInfo['principal'] = strPrincipal
+        chartInfo['balance'] = strBalance
         return chartInfo
 
     def chartCategories(self) :
@@ -114,54 +134,6 @@ class LoanInfo :
             strCategories +=  '\'' + str(newDate.date().strftime('%d/%m/%Y')) + '\', '
         return strCategories
     
-    def chartInterest(self) :
-        # months = LoanInfo.monthsTerm(self)
-        mpt = LoanInfo.monthlyPayment(self)
-        balance = self.Ammount
-        interest = 0
-        interest2 = 0
-        principal = 0
-        strInterest = ''
-        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
-        for i in range(LoanInfo.convertPeriod(self)) :
-            interest = interestRate*balance + LoanInfo.disbursementInterest(self)
-            interest2 += interest
-            principal = mpt - interest
-            balance = balance - principal
-            strInterest += str("%.2f" % interest2) + ', '
-        return strInterest
-
-    def chartPrincipal(self) :
-        #months = LoanInfo.monthsTerm(self)
-        mpt = LoanInfo.monthlyPayment(self)
-        balance = self.Ammount
-        interest = 0
-        principal = 0
-        principal2 = 0
-        strPrincipal = ''
-        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
-        for i in range(LoanInfo.convertPeriod(self)) :
-            interest = interestRate*balance + LoanInfo.disbursementInterest(self)
-            principal = mpt - interest
-            principal2 += principal
-            balance = balance - principal
-            strPrincipal += str("%.2f" % principal2) + ', '
-        return strPrincipal
-
-    def chartBalance(self) :
-        # months = LoanInfo.monthsTerm(self)
-        mpt = LoanInfo.monthlyPayment(self)
-        balance = self.Ammount
-        interest = 0
-        principal = 0
-        strBalance = ''
-        interestRate = LoanInfo.convertInterestRate(self, LoanInfo.convertPeriod(self))/100
-        for i in range(LoanInfo.convertPeriod(self)) :
-            interest = interestRate*balance + LoanInfo.disbursementInterest(self)
-            principal = mpt - interest
-            balance = balance - principal
-            strBalance += str("%.2f" % balance) + ', '
-        return strBalance
 
     def loanSchedule(self) :
         scheduleInfo = list()

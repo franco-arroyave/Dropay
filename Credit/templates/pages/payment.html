@@ -7,11 +7,15 @@
 {%include '../navbar.html'%}
 
 {%load static%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
 
 <div class="container form--addLoan">
+    
+
     <div class="row">
         <div class="col-3">
-            <h3>{{loan.Name}}</h3>
+            <h2>{{loan.Name}}</h2>
             <br>
             <p>
                 <b>Ammount:</b> ${{loan.Ammount}} USD
@@ -27,13 +31,98 @@
             </p>
         </div>
         <div class="col-9">
-            <div id="graphic"></div>
+            <div id="graphic"> graphic</div>
+            <button class="button--regular">View Amortization Schedule</button>
         </div>
     </div>
+
+    <div class="row" style="margin-top: 30px;">
+        <h4>Payment Details</h4>
+
+        <div class="card-group">
+            <div class="card">
+              <div class="card-body">
+                <p>
+                    <b>Principal Paid:</b>
+                </p>
+                <p>
+                    <b>Interest Paid:</b>
+                </p>
+                <div class="row">
+                    <!-- <div class="box">
+                        <div class="chart" data-percent="30" >90%</div>
+                        <p class="pieTitle">Principal Interes</p>
+                    </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h5>Total Paid</h5>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h5>Balance</h5>
+                <p>$ {{loan.balance}} USD</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <button class="button--regular">Add Payment</button>
+          </div>
+    </div>
+
+    
     <!-- <div class="row" style="margin-top: 50px;">
         <a href="{% url 'loans' %}"><button class="button--regular" type="submit" onclick="saveLoanInfo()">Save</button></a>
     </div> -->
     
 </div>
+
+<script type="text/javascript">
+    $(function() {
+    $('.chart').easyPieChart({
+        size: 160,
+        barColor: "#41C9EB",
+        scaleLength: 0,
+        lineWidth: 15,
+        trackColor: "#01048a",
+        lineCap: "circle",
+        animate: 2000,
+    });
+  });
+  </script>
+
+
+  <style>
+    .container .box {
+        width: 190px;
+    }
+
+    .container .box p.pieTitle {
+        display: block;
+        text-align: center;
+    }
+
+    .container .box .chart {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 30px;
+        line-height: 160px;
+        height: 160px;
+    }
+
+    .container .box canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        width: 100%;
+    }
+</style>
 
 {% endblock %}

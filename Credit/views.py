@@ -93,7 +93,7 @@ def loanPayment(request, pk):
     loan = get_object_or_404(Loan, LoanID = pk)
 
     if request.method == 'POST':
-        loanInfo = Loan.objects.filter(LoanID=pk, UserID_id=request.user.id)[0]
+        loanInfo = Loan.objects.filter(LoanID=pk, UserID_id=request.user.id).annotate(balance = Subquery(Paymant.objects.filter(LoanID_id=OuterRef('pk')).order_by('-Date').values('Balance')[:1]))[0]
         return render(request, 'pages/payment.html', {'loan': loanInfo})
     else :
         messages.add_message(request, messages.ERROR, loanInfo.errors)

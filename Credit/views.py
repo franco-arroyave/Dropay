@@ -5,6 +5,7 @@ from .models import Loan, Paymant
 from django.contrib import messages
 from .forms import addLoanForm, addRegularPayment
 from .loanInfo import LoanInfo
+from .payments import PaymentsInfo
 from django.contrib.auth.decorators import login_required
 from django.db.models import Subquery, OuterRef
 # Create your views here.
@@ -94,7 +95,9 @@ def loanPayment(request, pk):
 
     if request.method == 'POST':
         loanInfo = Loan.objects.filter(LoanID=pk, UserID_id=request.user.id).annotate(balance = Subquery(Paymant.objects.filter(LoanID_id=OuterRef('pk')).order_by('-Date').values('Balance')[:1]))[0]
-        return render(request, 'pages/payment.html', {'loan': loanInfo})
+        payments = Paymant.objects.filter(LoanID_id=pk).order_by('-Date')
+        paymentsMade = PaymentsInfo(payments).paymentSummary(vars(loanInfo))
+        return render(request, 'pages/payment.html', {'loan': loanInfo, 'payments': paymentsMade})
     else :
         messages.add_message(request, messages.ERROR, loanInfo.errors)
         return render(request, 'pages/index.html')

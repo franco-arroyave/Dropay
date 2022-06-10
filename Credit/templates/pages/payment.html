@@ -8,7 +8,7 @@
 
 {%load static%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
 
 <div class="container form--addLoan">
     
@@ -32,7 +32,7 @@
         </div>
         <div class="col-9">
             <div id="graphic"> graphic</div>
-            <button class="button--regular">View Amortization Schedule</button>
+            <button class="button--regular" data-bs-toggle="modal" data-bs-target="#amortizationSchedule">View Amortization Schedule</button>
         </div>
     </div>
 
@@ -65,12 +65,13 @@
               <div class="card-body">
                 <h5>Balance</h5>
                 <p>$ {{loan.balance}} USD</p>
+                <input type="checkbox" name="" id="" checked>
               </div>
             </div>
           </div>
 
           <div class="col-3">
-            <button class="button--regular">Add Payment</button>
+            <button class="button--regular" data-bs-toggle="modal" data-bs-target="#regularPayments">Add Payment</button>
           </div>
     </div>
 
@@ -81,19 +82,152 @@
     
 </div>
 
+<!-- Modal Amortization Schedule -->
+<div class="modal fade" id="amortizationSchedule" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Amortization Schedule</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Interest</th>
+                        <th scope="col">Principal</th>
+                        <th scope="col">Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- {% for date in loanSchedule %}
+                        <tr>
+                            <th scope="row">{{date.item}}</th>
+                            <td>{{date.date}}</td>
+                            <td>$ {{date.payment}} USD</td>
+                            <td>$ {{date.interest}} USD</td>
+                            <td>$ {{date.principal}} USD</td>
+                            <td>$ {{date.balance}} USD</td>
+                        </tr>
+                    {% endfor %} -->
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Regular Payments -->
+<div class="modal fade" id="regularPayments" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Regular Payments</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover" id="tblRegularPayment">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col"></th>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                        <tr>
+                            <td><input type="checkbox" name="payments[]" class="paymentCheck" value="{{payment.item}}" {{payment.check}}></td>
+                            <th scope="row">{{payment.item}}</th>
+                            <td>{{payment.date}}</td>
+                            <td class="payment">$ {{payment.payment}} USD</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4">
+                            <span id="totalPayment"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(function() {
-    $('.chart').easyPieChart({
-        size: 160,
-        barColor: "#41C9EB",
-        scaleLength: 0,
-        lineWidth: 15,
-        trackColor: "#01048a",
-        lineCap: "circle",
-        animate: 2000,
+        $('.chart').easyPieChart({
+            size: 160,
+            barColor: "#41C9EB",
+            scaleLength: 0,
+            lineWidth: 15,
+            trackColor: "#01048a",
+            lineCap: "circle",
+            animate: 2000,
+        });
     });
-  });
-  </script>
+
+    $('input:checkbox').change(function ()
+    {
+        var total = 0;
+        var totalStr = '';
+        $('input:checkbox:checked').each(function(){
+            let pay = $(this).parents('tr').find("td").eq(2).text();
+            var payS = pay.split(" ");
+            total += isNaN(parseFloat(payS[1])) ? 0 : parseFloat(payS[1]);
+            totalStr = "Total Payment: <b>$" + String(total.toFixed(2)) + " USD</b>";
+        });
+
+        $("#totalPayment").html(totalStr);
+    });
+
+    window.addEventListener('load', function () {
+        enableRegularPayments();
+    });
+
+    function enableRegularPayments() {
+        let ckPayments = document.getElementsByClassName('paymentCheck').length;
+        var paymentEnabled = 0;
+        for (var i = 0; i < ckPayments; i++) {
+            document.getElementsByClassName('paymentCheck')[i].disabled= true;
+            if (document.getElementsByClassName('paymentCheck')[i].checked) {
+                paymentEnabled++;
+            }
+        }
+        if (paymentEnabled == 0) {
+            document.getElementsByClassName('paymentCheck')[0].disabled= false;
+        }
+        document.getElementsByClassName('paymentCheck')[paymentEnabled - 1].disabled= false;
+        document.getElementsByClassName('paymentCheck')[paymentEnabled].disabled= false;
+    }
+ 
+    $('.paymentCheck').change(function(){
+        var i = $('.paymentCheck').index(this)
+        if ($(this).is(':checked')) {
+            $('.paymentCheck')[ i + 1].disabled= false;
+            $('.paymentCheck')[i - 1].disabled= true;
+        } else {
+            $('.paymentCheck')[i + 1].disabled= true;
+            $('.paymentCheck')[i - 1].disabled= false;
+        }
+    });
+
+</script>
 
 
   <style>

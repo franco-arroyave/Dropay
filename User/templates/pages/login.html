@@ -34,6 +34,7 @@
                         {{ form.password }}
                         <label for="user_password"><img src="{% static '/images/lock-keyhole.png'%}" height="16px" alt="password"> Password</label>
                     </fieldset>
+                    <span class="logIn_Form--finalText"><a href="{% url 'resetPassword'%}">Password Reset</a> </span>
 
                     <input type="checkbox" name="remember"><span class="checkbox--span">Remember information</span>
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block titulo %}Password Reset{% endblock %}
+
+{% block contenido %}  
+
+{% load static %}
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col" style="background-image: url('../static/images/login_background.png'); height: 98vh;">
+            <div class="logIn_logo">
+                <img src="{% static '/images/logo.svg'%}" class="logIn_logo--img" alt="Logo">
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="logIn_Form">
+                <form class="form" method="post">
+                    
+                    {% csrf_token %}
+
+                    <h2>Password Reset</h2>
+                    <p>Enter your email to reset the password.</p>
+                    <fieldset class="input-field">
+                        {{ form.email }}
+                        <label for="user_name"><img src="{% static '/images/email.png'%}" height="16px" alt="username"> Email</label>
+                    </fieldset>
+
+                    <button type="submit" id="submit">Reset</button>
+                </form>
+
+                <span class="logIn_Form--finalText">Return to <a href="{% url 'login'%}">Log In!</a> </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -73,7 +73,7 @@
                         </tr>
                     </table>
                     <fieldset class="input-field">
-                        {{ profileForm.DataPolicy }} I agree terms and conditions
+                        {{ profileForm.DataPolicy }} I agree <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">terms and conditions</a>
                     </fieldset>
 
                     <button type="submit" id="submit">Sign Up</button>
@@ -84,5 +84,51 @@
         </div>
     </div>
 </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Terms and Conditions</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Personal Data Protection Policy
+            The dropay.site as Responsible for the data processing of its interest groups informs the Personal Data Privacy Policy that has been adopted to comply with the provisions of the current legal regime contained in Statutory Law 1581 of 2012, on Protection of Personal Data, and 1266 of 2008, on Financial Habeas Data, as pertinent.
+            
+            In compliance with the legal and statutory powers, it processes personal data of its interest groups in execution of its corporate purpose, which consists mainly of the administration of contributions and resources in matters of social security established by law, in order to manage subsidies. , services and programs that benefit workers and family groups, affiliated companies and other members of the community, without prejudice to the other activities that the law empowers them to carry out or the processing of personal data linked to recreation services, credit, housing, health, education and special programs, among others.
+            
+            The personal data in the custody of dropay.site, in its capacity as Responsible and/or Manager, as the case may be, will be treated in compliance with the principles and regulations provided for in Colombian laws and the good practices applicable to the personal data protection regime. Likewise, in compliance with current regulations, it is reported that personal data may be processed directly and/or through third parties, in the capacity of data processors, in data centers located inside or outside of Colombia.
+            
+            Consequently, they will be treated in accordance with the following general purposes:
+            
+            Manage the affiliations made by companies, workers and respective family groups within the framework of the Family Compensation System.
+            Manage subsidies and/or benefits in accordance with the criteria of the law.
+            Comply with the obligations and/or commitments derived from the relationships, contractual or not, existing with its stakeholders.
+            Manage legal relations, commercial or not, arising from the provision of education, credit, housing, recreation and health services, without prejudice to other services for which it is authorized by law.
+            Manage social programs aimed at children, the elderly, the disabled population, the unemployed population, without prejudice to other population groups that are recipients of these.
+            Comply with the legal obligations that involve personal data of its interest groups.
+            Verify and analyze the personal data of its stakeholders, against risk management systems for the prevention and control of money laundering and financing of terrorism, corruption and fraud.
+            Communicate to its stakeholders, through traditional and/or virtual channels, commercial information or not, related to the offer of services, events, programs, publications, news, among others related or related to the development of its corporate purpose, whether it is done directly or not.
+            Provide information to the authorities and/or cooperate with them when required for that purpose.
+            Manage the security of people, property and information assets in the custody of the organization.
+            Deploy corporate social responsibility activities towards its stakeholders.
+            Manage the business relationship and relationship with stakeholders.
+            Manage the portfolio originating from credit relationships with third parties.
+            Manage the risks arising from the conclusion of contracts with third parties, in order to prevent economic damage to themselves or third parties.
+            Manage the quotes requested by those interested in their products, be they goods and/or services.
+            In the respective privacy notice, the particular purposes and the treatment that will be given to the personal data collected in the offer and provision of the services, products or programs provided by dropay.site will be previously informed. In addition, the name or business name and contact information of the person responsible or in charge of the treatment must be indicated; if the treatment will be carried out by a manager, who will be under the guidelines and guidelines defined by dropay.site; the rights that assist the owner and the mechanisms provided by dropay.site to publicize the Privacy Policy.
+            
+            dropay.site will process the personal data of the interest groups with which it is related, in compliance with the regulatory framework established by the Bank for this purpose and the current legal framework in Colombia.
+            
+            Any person who is part of one of the interest groups, in their capacity as owner or who is legitimately authorized, has the right, in relation to the processing of their personal data.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
